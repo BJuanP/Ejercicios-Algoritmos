@@ -1,0 +1,15 @@
+Accion ProdSuma Es
+Ambiente
+
+A, B: entero
+
+PROCESO
+Escribir("Ingrese un numero entero")
+Leer(A)
+Escribir("Ingrese otro numero entero")
+Leer(B)
+
+Para i= 1 hasta A hacer
+    R:= R + B
+FinPara
+FinAccion
