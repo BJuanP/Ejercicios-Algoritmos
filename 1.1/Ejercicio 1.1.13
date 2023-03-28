@@ -1,0 +1,31 @@
+Accion MayMen Es
+Ambiente
+
+Num: entero
+Var: entero
+B_Cien, B_Diez, B_Uno: entero
+
+PROCESO
+
+Escribir("Ingrese un numero entero mayor a 100 y menor a 1000")
+Leer(Num)
+
+Si Num > 100 y Num < 1000
+    Var1:= Num MOD 100
+    Var2:= Num - Var1 
+    B_Cien:= Var2/100
+    Num:= Num - Var2
+    Var1:= 0 // Var2:= 0
+    Var1:= Num MOD 10
+    Var2:= Num - Var1 
+    B_Diez:= Var2/10
+    Num:= Num - Var2
+    B_Uno:= Num/1
+FinSi
+
+Escribir("La cantidad de billetes de cada denomiacion que necesita es :")
+Escribir("Billetes de Cien: ", B_Cien)
+Escribir("Billetes de Diez: ", B_Diez)
+Escribir("Billetes de Uno: ", B_Uno)
+
+FinAccion
