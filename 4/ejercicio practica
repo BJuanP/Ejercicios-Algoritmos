@@ -1,0 +1,111 @@
+Accion PedidosYa es
+AMBIENTE
+
+p, prim, ant: puntero a listaPedidos;
+
+listaPedidos= registro
+        cod: n(6)
+        domicilio: an(60)
+        persona: an(60)
+        costo: n(5.2)
+        intento: n(1)
+        exito: logico
+        prox: puntero a listaPedidos
+fin registro
+
+procedimiento registrarPedido es
+    si(prim=nil) entonces
+            nuevo(p);
+            prim:= p;
+            *p.cod:= funcionCod;
+            esc("Ingrese el domicilio: "); leer(p.domicilio);
+            esc("Ingrese el nombre del cliente: "); leer(p.persona);
+            esc("Ingrese el costo de envio: "); leer(p.costo);
+            *p.intento:= 1;
+            *p.prox:= nil;
+            leer(p)
+        sino
+            mientras(p<>nil) hacer
+                    ant:= p;
+                    p:= p.prox;
+            fin mientras
+
+            nuevo(p);
+            p.cod:= funcionCod;
+            esc("Ingrese el domicilio: "); leer(p.domicilio);
+            esc("Ingrese el nombre del cliente: "); leer(p.persona);
+            esc("Ingrese el costo de envio: "); leer(p.costo);
+            *p.intento:= 1;
+            *ant.prox:= p;
+            *p.prox:= nil;
+        fin si
+fin procedimiento
+
+procedimiento actualizarPedido es
+    op: logico
+    codReferencia: n(6)
+escribir("Ingrese codigo de pedido:") 
+leer(codReferencia)
+
+mientras(p<>nil)^(*p.cod<>codReferencia) hacer
+    ant:= p;
+    p:= p.prox;
+fin mientras
+    si(*p.cod = codReferencia) entonces
+        escribir("El pedido fue realizado con exito?"); 
+        leer(op);
+        si op entonces
+            *ant.prox:= p.prox;
+            gananciaTotal:= gananciaTotal + (*p.costo-55);
+            segun(*p.intento) hacer
+                =1: pedidosExito:= pedidosExito+1;
+
+                =2: pedidosExito:= pedidosExito+1;
+
+                pedidosNoExito:= pedidosNoExito+1;
+            fin segun
+        sino
+            segun(*p.intento) hacer
+                =1:*p.intento:= 2;
+
+                =2:*ant.prox:= *p.prox;
+                    gananciaTotal:= gananciaTotal-55;
+                    pedidosNoExito2:= pedidosNoExito2+1;
+            fin segun
+        fin si
+    sino
+        escribir("Pedido no encontrado.");
+    fin si
+fin procedimiento
+
+op, op3: logico
+op2, gananciaTotal, pedidosExito, pedidosNoExito, pedidosNoExito2: entero
+
+PROCESO
+
+op3:= True; 
+gananciaTotal:= 0; 
+pedidosExito:= 0; 
+pedidosNoExito:= 0; 
+pedidosNoExito2:= 0;
+
+mientras op3 hacer
+    escribir("Que operación desea realizar?"); 
+    escribir("Registrar pedido (1)");
+    escribir("Actualizar pedido (2)");
+    leer(op2);
+
+    segun(op2) hacer
+        =1: registrarPedido();
+        =2: actualizarPedido();
+    fin segun;
+    escribir("Desea realizar otra operación?"); 
+    leer(op3);
+fin mientras
+
+escribir("Pedidos entregados con éxito: ", pedidosExito);
+escribir("Pedidos realizados con problemas: ", pedidosNoExito);
+escribir("Pedidos no entregados: ", pedidosNoExito2);
+escribir("Porcentaje de pedidos no entregados sobre pedidos con problemas: ", pedidosNoExito2/(pedidosNoExito+pedidosNoExito2)*100);
+escribir("Ganancia total del día: ", gananciaTotal);
+fin accion

@@ -1,0 +1,25 @@
+Accion  Es
+Ambiente
+
+sec: Secuencia de Caracter
+a: Caracter
+Voc: Caracter
+Cont: Entero
+
+PROCESO
+    ARR(sec)
+    AVZ(sec, a)
+    cont:= 0
+    Voc:= ("a", "e", "i", "o", "u")
+
+    Mientras a <> Z Hacer
+        Si a = Voc Entonces
+            AVZ(sec, a)
+        Sino
+            Cont:= Cont + 1
+            AVZ(sec, a)
+        FinSi
+    FinMientras
+    Cerrar(sec)
+Escribir("La cantidad de consonantes que hay en la secuencia es de:", cont)
+FinAccion

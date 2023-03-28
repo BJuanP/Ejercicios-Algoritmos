@@ -1,0 +1,44 @@
+ACCION EjIndex ES
+Ambiente
+   Dato = Registro
+     ID: N(3)
+     Nombre: AN(20)
+   FinRegistro
+
+   Arch: Archivo de Dato indexado por ID
+   Reg: Dato
+   band: logico
+   id_persona: N(3)
+   nombrecambiado:AN(20)
+Proceso
+	Abrir E/S(Arch)
+
+	band_= V
+
+	Mientras band Hacer
+		Esc('Ingrese el ID a modificar su nombre')
+		Leer(id_persona)
+
+		Reg.ID := id_persona
+		Leer(Arch, Reg) //busqueda en el índice
+
+		Si existe entonces
+				Esc('Quiere cambiar el nombre?')
+				Leer(nombrecambiado)
+
+				Si nombrecambiado <> "" entonces
+						Reg.Nombre:=nombrecambiado
+				FinSi
+				
+				//hago efectivo la actualización del registro
+				Regrabar(Arch, Reg)
+		contrario
+				Esc("No che no está el registro que buscas")
+		Fin Si
+
+		Esc('Queres ingresar otro ID?'); Leer(band)
+
+	FinMientras
+
+	Cerrar(Arch)
+FinAccion

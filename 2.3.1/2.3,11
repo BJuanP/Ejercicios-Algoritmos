@@ -1,0 +1,194 @@
+Ejercicio 2.3.11
+ 
+Una empresa dedicada a la venta de combustibles para automotores
+anunció una promoción mediante la cual los clientes pueden acceder
+a beneficios importantes. En cada carga los clientes suman 10 puntos
+por cada $100 de combustible y dependiendo del medio de pago se le
+aplica un factor multiplicador, Efectivo= 1.25 (25% de incremento) ,
+Debito= 1 (queda igual) o Crédito=0.9 (10% descuento). La cantidad de
+puntos que tiene cada cliente están almacenados en el archivo indexado
+PUNTOS el cual tiene el siguiente formato:
+ 
+	PUNTOS Indexado por DNI
+	DNI
+	Cant_Puntos
+	Ult_Carga
+ 
+Los datos de cada cliente se encuentran almacenados en el archivo
+CLIENTE también indexado con el siguiente formato
+ 
+	CLIENTE Indexado por DNI
+	DNI
+	Ape_Nom
+	Edad
+	Ciudad
+ 
+Se pide realizar el algoritmo que permita:
+Actualizar el archivo PUNTOS a partir del siguiente archivo secuencial
+(puede haber más de una carga por cliente), agregando los clientes que
+no existen en los archivos anteriores cuando sea necesario
+ 
+	CARGAS ordenado por DNI
+	DNI
+	Medio_Pago
+	Ape_Nom
+	Fecha
+	Ciudad
+	monto
+ 
+-Determinar la cantidad de cargas mayor a $1000
+-Informar la cantidad de Clientes nuevos cargados
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Accion Carga Es
+Ambiente
+ 
+	Puntos = Registro
+    	DNI: N(8)
+    	Cant_Puntos: N(5)
+    	Ult_Carga: FECHA
+	FInReg
+ 
+	Cliente = Registro
+    	DNI: N(8)
+    	Ape_Nom: AN(60)
+    	Edad: N(2)
+    	Ciudad: AN(60)
+	FinReg
+ 
+	Cargas = Registro
+    	DNI: N(8)
+    	Medio_Pago: (“Efectivo”, “Crédito”, “Débito”)
+    	Ape_Nom: AN(60)
+    	Fecha: FECHA
+    	Ciudad: AN(60)
+    	Monto: N(6,2)
+	FinReg
+ 
+	ArchPuntos: Archivo de Puntos Indexado por DNI
+	ArchCli: Archivo de Cliente Indexado por DNI
+	ArchCargas: Archivo de Cargas ordenado por DNI
+ 
+	P: Puntos
+	CL: Cliente
+	CA: Cargas
+ 
+	Puntos: entero
+	Monto: entero
+	CantCarMay: entero
+	ContClNuevo: entero
+	Edad: entero
+ 
+	Constantes
+ 
+	Efec:= 1.25
+	Crédito:= 0.9
+ 
+PROCESO
+	Abrir E/S(ArchPuntos)
+	Abrir E/S(ArchCli)
+ 
+	Abrir E/(ArchCargas)
+	Leer(ArchCargas, CA)
+ 
+	Puntos:= 0
+	Monto:= 0
+	CantCarMay:= 0
+	ContClNuevo:= 0
+	Edad:= 0
+ 
+Mientras NFDA(ArchCargas) hacer
+ 
+    CL.DNI:= CA.DNI
+    Leer(ArchCli, CL)
+ 
+    Si Existe entonces
+ 
+        Monto:= CA.Monto
+
+        Si Monto > 1000 entonces
+            CantCarMay:= CantCarMay + 1
+        FinSi
+
+        Mientras Monto > 100 hacer
+            Monto:= Monto - 100
+            Puntos:= Puntos + 10
+        FinMientras
+
+        Segun (CA.Medio_Pago) hacer
+
+            ="Efectivo":Puntos:= Puntos * Efec
+
+            ="Debito":Puntos:= Puntos * 1
+
+            ="Crédito":Puntos:= Puntos * Credito
+
+        FinSegun
+
+        P.DNI:= CL.DNI
+        Leer(ArchPuntos, P)
+        
+        P.Cant_Puntos:= P.Cant_Puntos + Puntos
+        P.Ult_Carga:= CA.Fecha
+        Regrabar(ArchPuntos, P)
+        	
+    Sino
+        Escribir("Ingrese su edad")
+        Leer(Edad)
+
+        CL.Ape_Nom:= CA.Ape_Nom
+        CL.Ciudad:= CA.Ciudad
+        CL.Edad:= Edad
+        Grabar(ArchCli, CL)
+        ContClNuevo:= ContClNuevo + 1
+
+        Monto:= CA.Monto
+
+        Si Monto > 1000 entonces
+            CantCarMay:= CantCarMay + 1
+        FinSi
+
+        Mientras Monto > 100 hacer
+            Monto:= Monto - 100
+            Puntos:= Puntos + 10
+        FinMientras
+
+        Segun (CA.Medio_Pago) hacer
+            ="Efectivo":Puntos:= Puntos * Efec
+            ="Debito":Puntos:= Puntos * 1
+            ="Crédito":Puntos:= Puntos * Credito
+        FinSegun
+
+        P.DNI:= CA.DNI
+        P.Cant_Puntos:= P.Cant_Puntos + Puntos
+        P.Ult_Carga:= CA.Fecha
+        Grabar(ArchPuntos, P)
+    FinSi
+
+	Leer(ArchCargas, CA)
+	
+FinMientras
+
+Cerrar(ArchPuntos)
+Cerrar(ArchCargas)
+Cerrar(ArchCli)
+	
+Escribir("La cantidad de cargas mayores a $1000 es de: ", CantCarMay)
+Escribir("La cantidad de nuevos clientes es de: ", ContClNuevo)
+
+FinAccion
+

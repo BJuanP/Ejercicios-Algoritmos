@@ -1,0 +1,115 @@
+Accion Ñoquis Es
+Ambiente
+
+N = Registro
+    Nombre: AN(50)
+    Monto: N(6)
+    NumMesa: N(2)
+    prox: puntero a N
+FinReg
+
+Cont: entero
+bool: booleano
+
+Procedimiento Alta(n:AN(50)) es
+    Cont:= Cont+1 
+    Nuevo(Q)
+    Si Prim = Null entonces()
+
+        Escribir("Ingrese su monto: ")
+        Leer(Monto)
+        
+        *Q.nombre:= n
+        *Q.Monto:= Monto 
+        *Q.NumMesa:= Cont
+
+        Leer(Q)
+        PRIM:= Q
+        *Q.prox:= Null
+    Sino
+        mientras n > *Q.nombre hacer
+            Si Q <> Null entonces
+
+                *ANT.prox:=Q
+                *Q.prox:=P
+
+                Escribir("Ingrese su monto")
+                Leer(Monto)
+
+                Q.nombre:= nombre
+                *Q.Monto:= Monto
+                *Q.NumMesa:= Cont
+            Sino
+                *ANT.prox:=Q
+                *Q.prox:=Null
+
+                Escribir("Ingrese su monto")
+                Leer(Monto)
+
+                *Q.nombre:= nombre
+                *Q.Monto:= Monto
+                *Q.NumMesa:= Cont
+            FinSi
+       
+            Q:=*Q.prox
+        FinMientras 
+FinProcedimiento
+
+Procedimiento Baja(n: AN(50)) es
+
+    mientras  n <> *Q.nombre hacer
+        Si Q = *Q.nombre entonces
+            Disponer(Q)
+        FinSi
+        Q:=*Q.prox
+    FinMientras
+FinProcedimiento
+
+Procedimiento RegisMonto(n: AN(50)) es
+    mientras  n <> *Q.nombre hacer
+        Si Q = *Q.nombre entonces
+            Escribir("Ingrese su monto")
+            Leer(Monto)
+            *Q.Monto:=*Q.Monto + Monto
+            Leer(Q)
+        FinSi
+        Q:=*Q.prox
+    FinMientras
+FinProcedimiento
+
+Procedimiento ImprTick(n: AN(50)) es
+    mientras  n <> *Q.nombre hacer
+        Si Q = *Q.nombre entonces
+            Fecha:= FechaHoy()
+            Escribir("Nombre---Fecha---NumMesa---Total")
+            Escribir(n, Fecha, *Q.NumMesa, *Q.Monto)
+        FinSi
+        Q:=*Q.prox
+    FinMientras
+FinProcedimiento
+
+  
+PROCESO
+Prim = Null
+
+Bool:= True
+
+    Mientras (Bool) hacer
+        Escribir("Ingrese su nombre: ")
+        Leer(Nombre)
+
+        Escribir("Qué desea hacer?: Alta, baja, RegisMonto, ImprTick")
+        Leer(Op)
+        Segun (Op) Hacer
+            
+            ="A": Alta(Nombre)
+            ="B": baja(Nombre)
+            ="R": RegisMonto(Nombre)
+            ="I": ImprTick(Nombre)
+            
+        FinSegun
+
+        Escribir("Desea continuar?")
+        Leer(Bool)
+    FinMientras
+FinAccion

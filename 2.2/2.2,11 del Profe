@@ -1,0 +1,121 @@
+Accion 2.2.11 ES // CORTE DE CONTRO,l
+    Ambiente
+        Fecha = registro de
+            aa:N(4)
+            mm:N(2)
+            dd:N(2)
+         Fr
+
+        clavef = reg
+            Sexo:{“M”,”F”}
+            Carrera:{“ISI”,”IEM”,“IQ”}
+            Nro_Legajo:N(5)
+        fr
+
+        Alumnos_registro = reg
+            clave:clavef
+            Fecha_Ingreso:fecha
+            TMA:N(2) // total materias aprobadas
+        fr
+
+        Alumnos: archivo de Alumnos_registro Ordenado por clave
+        r:Alumnos_registro
+
+        resclave:clavef
+
+        MayCar,MenCar,MaySexo,MenSexo,TotMay,TotMen:entero
+
+/*
+Total de alumnos que ingresaron en el año 2009 con más de 20 materias aprobadas.
+*/
+
+
+        Procedimiento corte_sex ES
+            //CALL N I 
+            corte_car
+            //MOSTRAR ESTADO ACTUAL VARS
+            Esc(‘SEXO:’, r.clave.sexo)
+            Esc(‘Total alumnos > 20 de la sexo’, MaySexoo)
+            Esc(‘Total alumnos < 20 de la sexo’,MenSexoo)
+
+            //A N Superior 
+
+            TotMay:=TotMay+MaySexo
+            TotMen:=TotMen+MenSexo
+            
+            //RES VAR TESTIGO Y CONT 0 
+
+            MaySexo:=0
+            MenSexo:=0
+
+            res_clave.sexo:=r.clave.sexo
+            
+        Fp
+
+        Procedimiento corte_car ES
+                    
+                //MOSTRAR ESTADO ACTUAL VARS
+
+                Esc(‘Carrera:’ res_clave.carrera)
+                Esc(‘Total alumnos > 20 de la carrera’, MayCar)
+                Esc(‘Total alumnos < 20 de la carrera’,MenCar)
+
+                //A N Superior 
+                
+                MaySexo:=MaySexo+MayCar
+                MenSexo:=MenSexo+MenCar
+
+                //RES VAR TESTIGO Y CONT 0
+
+                MayCar:=0
+                MenCar:=0
+
+                res_clave.carrera:=r.clave.carrera
+        Fp
+
+
+    Proceso
+
+        //tratar archivo
+
+        AbrirE/(Alumnos)
+        Leer(Alumnos,r)
+
+        // cont a 0
+        MayCar,MenCar,MaySexo,MenSexo,TotMay,TotMen:=0
+
+        // resguardo
+
+        res_clave.sexo:=r.clave.sexo
+        res_clave.carrera:=r.clave.carrera
+
+        Mientras NFDA(Alumnos) Entonces
+            Si res_clave.sexo <> r.clave.sexo Entonces
+                 corte_sex
+            Sino
+                Si res_clave.carrera <> r.clave.carrera Entonces
+                     corte_car
+                Fsi
+            fin si   
+    
+            Si r.Fecha_ingreso.aa = 2009 Entonces
+                Si r.TMA > 20 Entonces
+                    MayCar:=MayCar+1
+                Sino 
+                    MenCar:=MenCar+1
+                Fsi
+            Fsi
+
+            Leer(Alumnos,r)
+
+        Fin Mientras
+        corte_sex 
+
+        //IMPRIMIR TOT GRALES
+        Esc(‘Totales de personas del 2009 > 20 materias’, TotMay)
+        Esc(‘Totales de personas del 2009 < 20 materias’, TotMen)
+        Esc(‘Totales de personas inscriptas en el 2009’)
+
+        Cerrar(Alumnos)
+
+FA

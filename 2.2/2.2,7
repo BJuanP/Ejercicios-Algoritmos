@@ -1,0 +1,70 @@
+Se dispone de un archivo con los datos de un padrón electoral con la siguiente información:
+
+Nombre y apellido
+Clase
+DNI
+Dirección
+Nº de Mesa
+Observaciones
+Nº de Circuito
+Partido (0= independiente, 1=‘A’, 2=‘B’, 3=‘C’)
+
+Generar:
+a) Una secuencia de salida con nombre y apellido, DNI, y dirección de 
+todas las personas afiliadas al partido “C”.
+b) Una secuencia de salida con nombre y apellido, DNI, y dirección de 
+todas las personas no afiliadas a ningún partido y de clase posterior a 1940.
+
+
+Accion 2.2.7 Es
+Ambiente
+
+    Afiliados = Registro
+        NomyApe: an(30)
+        Clase: entero(4)
+        DNI: entero(8)
+        Dirección: an(50)
+        NºdeMesa: entero(4)
+        Observaciones: an(75)
+        NºdeCircuito: entero(4)
+        Partido: 0...3
+    FinRegistro
+
+    Arch1: archivo de Afiliados
+    reg1: Afiliados
+
+    AfiliadosS = Registro
+        AyN: An(30)
+        DNI: entero(8)
+        Dirección: an(50)
+    FinRegistro 
+
+    Arch2, Arch3: archivo de AfiliadosS
+    reg2, reg3: AfiliadosS
+
+Proceso
+    Abrir E/ (Arch1)
+    Leer(Arch1, reg1)
+    Abrir S/ (Arch2)
+    Abrir S/ (Arch3)
+
+    Mientras NFDA(Arch1) hacer
+        Si Reg1.Partido = 3 entonces
+            reg2.AyN := reg1.NomyApe
+            reg2.DNI := reg1.DNI
+            reg2.Direccion := reg1.direccion
+            Grabar(Arch2, reg2)
+        sino
+            si (Reg1.Partido = 0) y (reg1.Clase > 1940) entonces
+                reg3.AyN := reg1.NomyApe
+                reg3.DNI := reg1.DNI
+                reg3.Direccion := reg1.direccion
+                Grabar(Arch3, reg3)
+            FinSi
+        FinSi
+    Leer(Arch1, Reg1)
+    FinMientras
+    Cerrar(Arch1)
+    Cerrar(Arch2)
+    Cerrar(Arch3)
+FinAccion

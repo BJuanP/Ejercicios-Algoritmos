@@ -1,0 +1,15 @@
+
+
+//Se debe ingresar la longitud de la cadena
+
+Procedimiento Palindromo(SC: secuencia de caracter, long:entero) Es
+    Si long = 1 entonces
+        Escribir(S)
+    Sino
+        Para i:= 1 hasta long hacer
+            AVZ(ST, S)
+        FinPara
+        Escribir(S)
+        Palindromo(SC, long-1)
+    FinSi
+FinProcedimiento

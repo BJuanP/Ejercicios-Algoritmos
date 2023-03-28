@@ -1,0 +1,45 @@
+A partir de la secuencia del ejercicio 2.01 se desea generar otra 
+secuencia con los alumnos de una carrera dada que aprobaron alguna 
+materia este año, con nota mayor a 7 (siete).
+
+Accion Socios Es
+Ambiente
+
+    Fecha = Registro
+        Año: entero(4)
+        mes: entero(2)
+        dia: entero(2)
+    FinRegistro
+
+    Alumnos = Registro
+        Carrera: ("ISI", "IEM", "IQ")
+        N_Legajo: entero(8)
+        F_Nac: Fecha
+        F_Ing: Fecha
+        D.N.I: entero(8)
+        Sexo: ("M", "F")
+        F_ult_E_apro: Fecha
+        Nota: entero(2)
+    FinRegistro
+
+    A1, A2: Archivo de Alumnos Ordenado por N_Legajo
+    R1, R2: Alumnos
+
+PROCESO 
+    Abrir E/(A1)
+    Leer(A1, R1)
+    Abrir S/(A2)
+    
+    //preguntar carrera
+
+    Mientras NFDA(A1) hacer
+        Si (A1.F_Ult_E_Apro.Año = 2021) y (A1.Nota > 7) entonces
+            R2:= R1
+            GRABAR(A2, R2)
+        FinSi
+        LEER(A1, R1)
+    FinMientras
+    
+    CERRAR(A1)
+    CERRAR(A2)
+FinAccion

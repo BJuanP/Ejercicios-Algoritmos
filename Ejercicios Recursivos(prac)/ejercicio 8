@@ -1,0 +1,15 @@
+
+
+
+
+
+
+funcion Vector(a: arreglo de enteros [1..10], i: entero):entero Es
+
+    Si i = 0 entonces
+        a:= a[i]
+    Sino
+        a:= a[i] + Vector[i-1]
+    FinSi
+
+FinFuncion 

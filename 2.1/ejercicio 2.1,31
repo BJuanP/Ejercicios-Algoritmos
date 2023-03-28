@@ -1,0 +1,203 @@
+Accion Ticket Es
+Ambiente
+
+SecT: secuencia de caracter
+T: caracter
+Mes: entero
+
+M1,M2: caracter
+
+SecP1: Secuencia de caracter
+SecP2: Secuencia de caracter
+SecS: Secuencia de caracter
+
+PROCESO
+
+Escribir("Ingrese un mes")
+Leer(Mes)
+
+ARR(SecT)
+Avz(SecT, T)
+Crear(SecS)
+
+Mientras NFDS(SecT) Hacer
+    Mientras T <> "#" Hacer
+        Escribir(SecP1, T)
+        Avz(SecT, T)
+    FinMientras
+    Avz(SecT, T)
+
+    Mientras T <> "&" Hacer
+        Mientras T <> "!" Hacer
+            Para i:= 1, Hasta 2, 1 Hacer
+                Escribir(SecP2, T)
+                Avz(SecT, T)
+            FinPara
+            Avz(SecT, T)
+            Si T = M1 Entonces
+                Escribir(SecP2, T)
+                Avz(SecT, Ticket)
+                Si T = M2 Entonces
+                    Escribir(SecP2, T)
+                    Avz(SecT, T)
+                FinSi
+                Escribir(SecS, SecP1)
+                Escribir(SeCS, SecP2)   
+            Sino
+                Mientras T <> "!" Hacer
+                    Avz(SecT, T)
+                FinMientras
+            Avz(SecT, T)
+            FinSi
+        FinMientras
+        Vaciar(SecP1)
+        Vaciar(SecP2)
+    FinMientras
+FinMientras
+
+
+Ejercicio 2.1.31)
+
+El siguiente es un ejercicio del primer parcial del año 2017: La empresa TICKET-TEC ha generado una secuencia de caracteres con información 
+de sus ventas para los eventos de los últimos 3 meses, cuya estructura se describe a continuación. 
+Inicialmente existe el nombre del local de los eventos, cuya longitud se desconoce, termina con un #; 
+a continuación se tiene la información de todos los tickets vendidos para ese local, separado cada ticket del siguiente con el caracter !, 
+y al final de todas las ventas para ese local, el caracter &. 
+Por último la marca de fin de secuencia. También en el caso de butaca se desconoce la longitud del número, termina con un guión.
+
+EJEMPLO
+Teatro Opera#270520171A45-2030!270520173D120-2230!280520172C233-2030!&Galpon de las Luces#070720171C5-2030!301020172A233-2230!&{fin}
+
+local de eventos#Fecha del evento[ddmmaaaa] codigo del evento[1..3] butaca [sector [A,C o D], número] - horario evento [hhmm]!
+
+Solo hay dos horarios 20:30 y 22:30.
+
+La empresa solicita un algoritmo que cumpla con las siguientes consignas:
+
+Generar una nueva secuencia de salida con el mismo formato, que contenga los tickets correspondientes a un mes ingresado por el usuario.
+
+Informar total general de tickets vendidos, total de tickets por evento y porcentaje de cada uno sobre el total general.
+
+
+ACCION ticket-tec ES
+AMBIENTE
+  
+sec, sal: secuencia de caracteres
+v,D1,D2,M1,M2: caracter
+total_gen, total_tick1, total_tick2, total_tick3: entero
+
+Funcion caract(N: entero): caracter Hacer
+    Segun N Hacer 
+        0: caract:= "0"
+        1: caract:= "1"
+        2: caract:= "2"
+        3: caract:= "3"
+        4: caract:= "4"
+        5: caract:= "5"
+        6: caract:= "6"
+        7: caract:= "7"
+        8: caract:= "8"
+        9: caract:= "9"
+    FinSegun
+FinFuncion
+
+PROCESO
+
+ARR(sec)
+AVZ(sec, v)
+CREAR(sal)
+Esc('ingrese un mes del ticket en dos cifras')
+Esc('primero ingrese primera cifra')
+Leer(n1)
+Esc('ahora ingrese la segunda cifra')
+Leer(n2)
+M1:= caract(n1)
+M2:= caract(n2)
+total_gen:=0
+total_tick1:=0
+total_tick2:=0
+total_tick3:=0
+
+Mientras NFDS(sec) Hacer
+    Mientras (v <> '#') Hacer
+        AVZ(sec, v)
+    FinMientras
+
+    Mientras (v <> '&') Hacer
+        Mientras (v <> '!') Hacer
+            total_gen:= total_gen + 1
+            AVZ(sec, v)
+            D1:= v
+            AVZ(sec, v)
+            D2:= v
+            AVZ(sec, v)
+
+            SI (v = M1) ENTONCES
+                AVZ(sec, v)
+                SI (v = M2) ENTONCES
+                    Esc(sal, D1)
+                    Esc(sal, D2)
+                    Esc(sal, M1)
+                    Esc(sal, M2)
+                    AVZ(sec, v)
+
+                    Segun v Hacer
+                        '1': total_tick1:= total_tick1 + 1
+                        '2': total_tick2:= total_tick2 + 1
+                        '3': total_tick3:= total_tick3 + 1
+                    FinSegun
+
+                    Mientras (v <> '!') Hacer
+                        Esc(sal, v)
+                        AVZ(sec, v)
+                    FinMientras
+                SINO
+                    Para i:= 1 hasta 5 Hacer
+                        AVZ(sec, v)
+                    FinPara
+
+                    Segun v Hacer
+
+                        '1': total_tick1:= total_tick1 + 1
+                        '2': total_tick2:= total_tick2 + 1
+                        '3': total_tick3:= total_tick3 + 1
+
+                    FinSegun
+
+                    Mientras (v <> '!') Hacer
+                        AVZ(sec, v)
+                    FinMientras
+                FinSI
+            SINO
+                Para i:= 1 hasta 6 Hacer
+                AVZ(sec, v)
+                FinPara
+                Segun v Hacer
+                    '1': total_tick1:= total_tick1 + 1
+                    '2': total_tick2:= total_tick2 + 1
+                    '3': total_tick3:= total_tick3 + 1
+                FinSegun
+                Mientras (v <> '!') Hacer
+                AVZ(sec, v)
+                FinMientras
+            FinSI
+        FinMientras
+        AVZ(sec, v)
+    FinMientras
+    AVZ(sec, v)
+FinMientras
+
+Esc('el total de tickets vendidos es de', total_gen)
+Esc('el total de tickets del evento 1 es', total_ticke1, 'su porcentaje es', (total_ticke1*100)/total_gen '%')
+Esc('el total de tickets del evento 2 es', total_ticke2, 'su porcentaje es', (total_ticke2*100)/total_gen '%')
+Esc('el total de tickets del evento 3 es', total_ticke3, 'su porcentaje es', (total_ticke3*100)/total_gen '%')
+
+Cerrar(sec)
+Cerrar(sal)
+
+FinAccion
+
+
+Obtener secuencia con tickets del mes que ingrese el usuario
+
+Total de tickets, total de tickets por local, procentaje de los tickets de cada local sobre el total

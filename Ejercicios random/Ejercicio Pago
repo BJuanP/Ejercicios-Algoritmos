@@ -1,0 +1,25 @@
+Accion Pago Es
+AMBIENTE
+
+Horas_T: Entero
+Sal_H: Real
+Total: Real
+Dif: Entero
+
+PROCESO
+Escribir("Ingrese las horas trabajadas")
+Leer(Horas_T)
+Escribir("Ingrese el salario por hora")
+Leer(Sal_H)
+
+Si Horas_T > 40 Entonces
+	Dif:=Horas_T-40
+	Horas_T:= Horas_T-Dif
+	Total:= Horas_T*Sal_H+((Dif*Sal_H)*1,50)
+Sino
+	Total:= Horas_T*Sal_H
+FinSi
+Total:= Total*4
+Escribir("Su salario mensual es de: ", Total)
+
+FinAccion

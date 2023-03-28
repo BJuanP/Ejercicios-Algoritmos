@@ -1,0 +1,11 @@
+Funcion Par(n:entero):booleano es
+    si (n=0) entonces
+        Par:= Verdadero
+    Sino
+        si (n MOD 2) = 0 entonces
+            Par:= Par(n DIV 10)
+        Sino
+            Par:= Falso
+        FinSi
+    FinSi
+FinFuncion      

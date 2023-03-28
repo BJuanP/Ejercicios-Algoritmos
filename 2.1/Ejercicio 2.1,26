@@ -1,0 +1,25 @@
+Accion Intercalado Es
+Ambiente
+
+Sec1: secuencia de caracter
+A: caracter
+Sec2: secuencia de caracter
+B: caracter
+
+SecS: secuencia de caracter
+
+CaracP: caracter
+
+PROCESO
+ARR(Sec1)
+Avz(Sec1, A)
+ARR(Sec2)
+Avz(Sec2, B)
+Crear(SecS)
+
+
+Mientras NFDS(Sec1, Sec2) Hacer
+    CaracP:= A
+    Mientras A <> " " Hacer
+        Avz(Sec1, A)
+        Si A = CaracP

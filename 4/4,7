@@ -1,0 +1,96 @@
+Accion Secuencia Es
+Ambiente 
+
+N = Registro
+    Letra: Caracter
+    Frecuencia: N(4)
+    prox: puntero a N
+FinReg
+
+SecText: Secuencia de caracter
+S: caracter
+
+P: puntero a N
+
+ContMay: entero
+ContMen: entero
+
+Proceso
+Arr (ST)
+Avz (ST, S)
+
+Prim= null
+P = Prim
+
+ContMay:= LV
+ContMen:= HV
+
+Mientras NFDS(ST) hacer
+    Si (S = " ") Entonces
+        Avz(St, S)
+    FinSi
+
+    Si Prim = Null entonces  //Insercion primer elemento
+        Nuevo(Q)
+        *Q.Letra:= S
+        *Q.Frecuencia:= 1
+        Leer(Q)
+
+        Prim:= Q
+        *Q.prox:= Null
+        Avz(ST, S)
+    Sino          //para actualizar la frecuencia de una letra ya cargada
+        
+        P:= Prim
+        Mientras (P <> Null) y (S >= *P.Letra) hacer 
+
+            Si (S = *P.Letra)
+                *Q.Frecuencia:= *Q.Frecuencia + 1
+                Leer(Q)
+                Avz(ST, S)
+            FinSi
+
+            P:= *P.Prox
+        FinMientras
+
+        Nuevo(Q)
+        *Q.Letra:= S
+        *Q.Frecuencia:= 1
+        Leer(Q)
+        
+        Si (P = null) entonces //Insercion de ultimo elemento
+
+            *(*p.ant).prox:= q
+            *Q.prox:= Null
+            Avz(ST, S)
+        Sino            //Insercion en el medio
+
+            *ant.prox:= Q
+            *Q.prox:= P
+            Avz(ST, S)
+        FinSi
+    FinSi
+FinMientras
+
+Cerrar(ST)
+
+P:= Prim 
+Mientras P <> Null hacer
+    Escribir(*P.Frecuencia)
+
+    Si *P.Frecuencia > ContMay entonces
+        ContMay:= *P.Frecuencia
+        May:= *P.Letra
+    FinSi
+
+    Si *P.Frecuencia < ContMen entonces
+        ContMen:= *P.Frecuencia
+        Men:= *P.Letra
+    FinSi
+
+    P:= *P.prox
+FinMientras
+
+Escribir("La letra de mayor frecuencia fue la: ", May)
+Escribir(", y la letra de menor frecuencia fue la: ", Men)
+FinAccion

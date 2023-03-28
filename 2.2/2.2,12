@@ -1,0 +1,112 @@
+ Accion Población Es
+ Ambiente
+    
+    ClaveP = Registro
+        Prov: AN(50)
+        Dep: AN(50)
+        Ciudad: AN(50)
+        Barrio: AN(50)
+        ID_Casa: Entero(7)
+    FinReg
+
+    Poblacion = Registro 
+        Clave: ClaveP
+        Cant_Hab: Entero(8)
+    FinReg
+
+    Poblacion_Sal = Registro
+        Prov: AN(50)
+        Dep: AN(50)
+        Cant_Hab: Entero(8)
+    FinReg
+
+    ArchP: Archivo de Poblacion ordenado por ClaveP 
+    ArchPSal: Archivo de Poblacion_Sal
+    RegP: Poblacion
+    RePS: Poblacion_Sal
+
+    ResClave:= ClaveP
+
+    CantHab: Entero(8)
+
+    Subaccion corte_Prov Es
+
+        Corte_Dep
+
+        ResClave.Prov:= RegP.Clave.Prov
+
+    FinSubaccion
+
+    Subaccion Corte_Dep Es
+    
+        RegPS.Cant_Hab:= CantHab
+        RegPS.Dep:= ResClave.Dep
+        RegPS.Prov:= ResClave.Prov
+
+        Grabar(ArchPS, RegPS)
+
+        ResClave.Dep:= RegP.Clave.Dep
+
+        CantHab:= 0
+
+    FinSubaccion
+
+PROCESO
+    Abrir E/(ArchP)
+    Leer(ArchP, RegP)
+    
+    ResClave.Prov:= RegP.Clave.prov
+    ResClave.Dep:= RegP.Clave.Dep
+
+    Mientras NFDA(ArchP) Hacer
+
+        Si ResClave.Prov <> RegP.Clave.prov Entonces
+            corte_Prov
+        Sino
+            Si ResClave.Dep <> RegP.Clave.Dep Entonces
+                Corte_Dep
+            FinSi
+        FinSi
+        
+        CantHab:= CantHab + RegP.Cant_Hab
+
+        Leer(ArchP, RegA)
+    FinMientras
+
+    corte_Prov
+
+    Cerrar(ArchP)
+    Cerrar(ArchPS)
+FinAccion
+
+
+
+Prueba de escritorio
+
+provincia	departamento	ciudad	barrio	ID_Casa	cantidad_hab
+chaco	    ted	            sf	    asdf	1	    5		
+chaco	    ted	            sf	    sdf	    1	    2	
+chaco	    ted	            sdf	    asdf	1	    6		
+chaco	    asd	            sdf	    g	    2	    2	
+chaco	    asd	            ergve	re	    3	    5		
+chaco	    asd	            ergve	das	    1	    8		
+chaco	    ve	            ergve	vd	    3	    2	
+chaco	    ve	            ergve	hrt	    1	    5		
+chaco	    tre	            vev	    das	    1	    2
+cordoba	    ytr	            sd	    gtr	    3	    8		
+cordoba	    ytr	            sd	    dfv	    12	    9	
+cordoba	    yrt	            ert	    dsv	    21	    2		
+cordoba	    yrt	            ert	    wev	    1	    5		
+cordoba	    rew	            dv	    fv	    1	    3		
+cordoba	    rew	            dv	    df	    1	    4		
+cordoba	    rew	            ceqgb	va	    21	    3		
+							
+	
+			
+							
+chaco	ted	13	
+chaco	asd	15	
+chaco	ve	7		
+chaco	tre	2		
+cordoba	ytr	24	
+cordoba	rew	10		

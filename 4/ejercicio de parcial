@@ -1,0 +1,124 @@
+Accion multimedia (PRIM, p: puntero a NODO1) Es
+Ambiente
+
+FECHA = Registro
+    Dia: N(2)
+    Mes: N(2)
+    Año: N(4)
+FinRegistro
+
+Recomendaciones = Registro
+    TrackId: N(6)
+    NombreMusica: AN(60)
+    Genero: "J", "R", "C"
+    Artista: AN(30)
+    Duracion: N(4)
+FinRegistro
+
+ArchRec: Archivo de recomendaciones ordenado por TrackID
+Rec: Recomendaciones
+
+NODO1 = Registro
+    Datos: RecomendadosHist
+    prox: puntero a NODO
+FinRegistro
+
+NODO2 = Registro
+    Datos: Recomendaciones
+    prox: puntero a NODO
+FinRegistro
+
+PRIM2, Q: puntero a NODO2
+
+RecomendadosHist = Registro
+    TrackID: N(6)
+    NombreMusica: AN(60)
+    FechaRecomendación: FECHA
+FinRegistro
+
+ContJ, ContR, ContC, ContT: entero
+
+PROCESO
+
+Abrir(ArchRec)
+Leer(ArchRec, Rec)
+PRIM2:= Nil
+ContJ, ContR, ContC, ContT:= 0
+
+Mientras NFDA(ArchRec) Hacer
+
+    p:=PRIM
+
+    Mientras p <> nil y Rec.NombreMusica <> *P.NombreMusica hacer
+        p:= *p.prox
+    FinMientras
+
+    Si Rec.NombreMusica = *P.NombreMusica entonces
+        Leer(ArchRec, Rec)
+    Sino
+        Segun (Rec.Genero) hacer
+            ="J": contJ:= contJ + 1
+            ="R": contR:= contR + 1
+            ="C": contC:= contC + 1
+        FinSegun
+        ContT:= contJ + contR + contC
+
+        Si ContT < 31 y ContJ < 11 y ContR < 11 y ContC < 11 entonces
+            Nuevo(Q)
+            *Q.TrackID:= Rec.TrackID
+            *Q.NombreMusica:= Rec.NombreMusica
+            *Q.Genero:= Rec.Genero
+            *Q.Artista:= Rec.Artista
+            *Q.Duracion:= Rec.Duracion
+            LEER(Q)
+
+            T:=PRIM2
+
+            Si T = Nil entonces
+                PRIM:= T
+                *T.prox:= nil
+            Sino
+                T:=PRIM
+                Mientras T <> NIL y *Q.datos.Genero > *T.datos.Genero Thacer
+                    ANT:= T 
+                    T:= *T.prox
+                FinMientras
+
+                SI T = PRIM entonces
+                    PRIM:= Q
+                    *Q.prox:= p
+                SINO
+                    *ANT.prox:= Q
+                    *Q.prox:= Nil
+                FinSi
+            FinSi
+        FinSi
+
+        Nuevo(Q)
+        *Q.TrackID:= Rec.TrackID
+        *Q.NombreMusica:= Rec.NombreMusica
+        *Q.FechaRecomendación:= Sistema.Fecha()
+        LEER(Q)
+        T:= PRIM2
+
+        Si T = Nil entonces
+            PRIM:= T
+            *T.prox:= nil
+        Sino
+            T:=PRIM
+            Mientras T <> NIL y *Q.datos.Genero > *T.datos.Genero Thacer
+                ANT:= T 
+                T:= *T.prox
+            FinMientras
+
+            SI T = PRIM entonces
+                PRIM:= Q
+                *Q.prox:= p
+            SINO
+                *ANT.prox:= Q
+                *Q.prox:= Nil
+            FinSi
+        FinSi
+    FiNSi
+    Leer(ArchRec, Rec)
+FinMientras

@@ -1,0 +1,117 @@
+ACCION 4.10 ES 
+AMBIENTE 
+
+    PRIM,P: puntero a NODO
+    
+    NODO = REGISTRO 
+        numero: N(4)
+        prox: puntero a NODO
+    FinRegistro
+
+    NODO1 = REGISTRO
+        numero: Entero
+        ant, prox: puntero a NODO2
+    FinRregistro
+
+    PRIM2, ULT, P2, ANT: puntero a NODO2
+
+    suma, cant_nodos: entero 
+
+PROCESO 
+    P:= PRIM 
+    max:= LV 
+    min:= HV
+    PRIM2:=null
+
+    MIENTRAS P <> Ult HACER 
+        cant_nodos: *P.numero 
+
+        Para i:=1 Hasta cant_nodos Hacer
+            suma:= suma + *(*P.prox).numero
+            P:= P.prox 
+        FinPara
+
+        nuevo(P2)
+        *P2.numero:= suma DIV cant_nodos
+
+        SI PRIM2 = nill ENTONCES 
+            PRIM2:= P2
+            ULT:= P2 
+            *P2.prox:= Nill
+            *P2.ant:= Nill 
+            ANT:= P2
+        SINO 
+            *P2.ant:= ANT 
+            ANT:= P2
+            *P2.prox:= NILL
+        FinSi
+
+        SI *P2.numero > max ENTONCES 
+            maximo:= *P2.numero
+        SINO 
+            SI *P2.numero < min ENTONCES 
+                minimo:= *P2.numero 
+            FinSi
+        FinSi
+    FinMientras
+
+    Esc("El maximo de promedio de todo el conjunto de numeros es:" maximo)
+    Esc("El minimo de promedio de todo el conjunto de numeros es:" minimo)
+FinAccion
+
+
+
+
+
+
+Accion (PRIM, p: Puntero a NODO) Es
+Ambiente
+
+NODO = REGISTRO
+    numero: entero
+    prox: puntero a NODO
+FinRegistro
+
+NODO2 = REGISTRO
+    numero: entero
+    prox, ant: puntero a NODO
+FinRegistro
+
+PRIM2, Ant: puntero a NODO2
+
+PROCESO
+
+PRIM2:=Null
+p:=PRIM
+
+Si p = null entonces
+    Escribir("Error. Lista Vacía")
+Sino
+    Mientras P <> ult hacer
+        cant:= *p.numero
+
+        Para i:=1 hasta cant hacer
+            suma:=suma + *p.numero
+            p:=*p.prox
+        FinPara
+
+        Nuevo(q)
+        *q.numero:= (suma/cant)
+
+        si PRIM2 = null entonces
+            PRIM2:= q
+            *q.prox:= null
+            *q.ant:= null
+            ULT:=Q
+            ANT:=Q
+        Sino
+            *P2.ant:= ANT 
+            ANT:= Q
+            *P2.prox:= NILL
+        FinSi
+
+        Si
+
+
+
+suma:=suma / cant

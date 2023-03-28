@@ -1,0 +1,37 @@
+Accion 4.2 (prim:puntero a nodo)Es
+Ambiente
+
+NODO: Registro
+    numero: N(8)
+    prox: puntero a NODO
+FinRegistro
+
+prim2, q, ant: puntero a NODO
+
+PROCESO
+    prim2:= nill
+    q:=prim
+    ant:= q
+    Mientras q <> nill hacer
+        si (*q.numero mod 10) = 0 entonces
+            si (q = prim) entonces  //en la lista 1, el nodo analizado es el primero
+                prim:= *prim.prox
+
+                //cargar en lista 2
+                *q.prox:= prim2
+                prim2:= q
+                q:= prim
+            sino    //en la lista 1, el nodo analizado no es el primer nodo
+                *ant.prox:= *q.prox
+
+                //cargar en lista 2
+                *q.prox:= prim2
+                prim2:= q
+                q:= *ant.prox  
+            finsi
+        sino ,
+            ant:= q
+            q:= *q.prox
+        FinSi 
+    FinMientras
+FinAccion

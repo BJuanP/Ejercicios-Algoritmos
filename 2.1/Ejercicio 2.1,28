@@ -1,0 +1,79 @@
+Accion ARTE Es
+Ambiente
+
+SecA: secuencia de caracter
+A: caracter
+
+SecO: secuencia de caracter
+O: caracter
+
+SecS: secuencia de caracter
+SecN: secuencia caracter
+
+ContT, ContR: entero
+
+PROCESO
+ARR(SecA)
+Avz(SecA, A)
+ARR(SecO)
+Avz(SecO, O)
+Crear(SecS)
+Crear(SecN)
+
+ContT:= 0 
+ContR:= 0
+ContC:= 0
+
+Mientras NFDS(SecA, SecO) Hacer
+    Mientras A <> "?" Hacer
+        Si ContC = 0 Entonces
+            Mientras A <> "+" Hacer
+                Escribir(SecN, A)
+                Avz(SecA, A)
+            FinMientras
+            Avz(SecA, A)
+            ContC:= 1  
+        Sino si ContC = 3 Entonces
+            Si A = "R" Entonces
+                Escribir(SecS, SecN)
+                Mientras A <> "+" Hacer
+                    Escribir(SecS, A)
+                    Avz(SecA, A)
+                FinMientras
+                ContC:= ContC + 1
+                ContObras:= A(Suponiendo que nos deja guardar un caracter como entero)
+                Escribir(SecS, "+")
+                Mientras O <> "/" y ContObras > 0 Hacer
+                    Mientras O <> "," y ContComa < 2 Hacer
+                        Escribir(SecS, O)
+                        Avz(SecO, O)
+                    FinMientras
+                    ContComa:= ContComa + 1
+                    Avz(SecO, O)
+                    FinMientras
+                ContObras:= ContObras - 1
+                FinMientras
+            FinSi
+        Sino
+            Avz(SecA, A)
+            Si A = "+" Entonces
+                ContC:= ContC + 1
+            FinSi
+        FinSi
+    FinMientras
+    ContC:= 0
+    Vaciar(SecN)
+FinMientras
+Escribir(SecS, "?")
+
+Generar secuencia de salida con info de los artistas renacentistas
+
+Informar la mayor cant de obras por artista
+El porcentaje de obras de artistas renacentistas sobre el total de obras.
+
+
+SecA: RENE BARTOL+ROSARIO+34+M+2?JUAN B JUSTO+NEUQUEN+61+R+5?
+
+SecO: SOL Y PARANA,1997,$913,V/GRITO DE ESPERANZA,2003,$235,R/PENAS,1997,$781,V/
+
+SecS:

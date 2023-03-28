@@ -1,0 +1,109 @@
+Accion PedidosYa Es
+Ambiente
+
+Pedidos = Registro
+    CodPed: N(6)
+    Domicilio: AN(60)
+    Recibe: AN(60)
+    CostoEnvio: N(5.2)
+FinRegistro
+
+ArchPed: Archivo de Pedidos ordenado por CodPed
+Ped: Pedidos
+
+NODO = Registro
+    Datos: Pedidos
+    Intento: N(1)
+    prox: puntero a NODO
+FinRegistro
+
+Prim, p, q, ant: puntero a NODO
+
+Procedimiento CrearNodo() es
+    Nuevo(q)
+    *q.datos.CodPed:= Ped.CodPed
+    *q.datos.Domicilio:= Ped.Domicilio
+    *q.datos.Recibe:= Ped.Recibe
+    *q.datos.CostoEnvio:= Ped.CostoEnvio
+    *q.Intento:= 0
+    leer(q)
+FinProcedimiento
+
+op, op2, op3: logico
+PedNExito, PedExito2, Gan, PedExito: entero
+
+PROCESO
+
+Abrir(ArchPed)
+Leer(ArchPed, Ped)
+Prim:= nil
+p:= prim
+
+op:= True
+
+Mientras NFDA(ArchPed) Hacer
+    Si p = nil entonces
+        CrearNodo()
+        PRIM:=q
+        *q.prox:= nil
+    Sino
+        Mientras p <> nil hacer
+            ant:= p
+            p:= *p.prox
+        FinMientras
+        
+        Si p = PRIM entonces
+            CrearNodo()
+            *q.prox:=Prim
+            prim:= q
+        Sino
+            CrearNodo()
+            *ant.prox:= q
+            *q.prox:= p
+        FinSi
+    FinSi
+    Leer(ArchPed, Ped)
+FinMientras
+
+Mientras (op) hacer
+    Escribir("Ingrese el codigo de pedido que desea tratar: ")
+    Leer(op2)
+
+    P:= PRIM
+
+    Mientras *p.datos.CodPed <> op2 hacer
+        p:= p.prox
+    FinMientras
+
+    Escribir("Se pudo realizar con exito la entrega?: ")
+    Leer(op3)
+
+    Si op3 entonces
+        PedExito:= PedExito + 1
+        Gan:= Gan + *p.datos.CostoEnvio - 55
+        *(*p.ant).prox:= p.prox
+    Sino
+        *p.Intento:= *p.Intento + 1
+        PedExito2:= PedExito2 + 1
+        Gan:= Gan + Gan - 55
+    FinSi
+
+    Si *p.Intento = 3 entonces
+        PedNExito:= PedNExito + 1
+        Gan:= Gan + Gan - 55
+        *(*p.ant).prox:= p.prox
+FinMientras
+
+Cerrar(ArchPed)
+
+Escribir("Pedidos con exito en primer intento:", PedExito)
+Escribir("Pedidos sin exito: ", PedNExito)
+Escribir("Porcentaje de pedidos entregados 2 veces: ", PORCENTAJE)
+Escribir("Ganancia total de la empresa en el día: ", Gan)
+
+FinAccion
+
+
+    
+
+

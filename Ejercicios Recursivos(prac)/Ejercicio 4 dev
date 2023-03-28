@@ -1,0 +1,18 @@
+
+
+
+
+
+Funcion Pares(n:entero ):logico Es
+
+    Si n = 0 entonces
+        Pares:= V
+    Sino
+        Si n MOD 2 = 0 entonces
+            Pares:= Pares(n DIV 10)
+        Sino
+            Pares:= F
+        FinSi
+    FinSi
+    
+FinFuncion

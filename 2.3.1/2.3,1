@@ -1,0 +1,49 @@
+Accion 2.3.1 Es
+Ambiente
+    
+    Facturas = Registro
+        NCli: N(4)
+        NFac: N(4)
+        Fecha: FECHA
+        Importe: N(4)
+    FinReg
+
+    ArchFac: Archivo de Facturas ordenado por Ncli y NFac
+    F: Facturas
+
+    Clientes = Registro
+        NCli: N(4)
+        Nombre: AN(60)
+        DNI: N(4)
+        Cuit: N(4)
+        Domicilio: AN(60)
+    FinReg
+
+    ArchCli: Archivo de Clientes indexado por NroCliente
+    C: Clientes
+
+PROCESO
+    Abrir E/(ArchFac)
+    Abrir E/(ArchCli)
+    Leer(ArchFac, F)
+
+    //EL INDEXADO NO LO VOY A LEER HASTA QUE NO LO NECESITE
+    //Excepto que el indexado lo tenga que tratar de forma secuencial
+
+    Esc(Numero de cliente - Nombre - Numero de factura)
+    Mientras NFDA(ArchFac) hacer
+        C.NCli := F.NCli  //Cargar el campo clave completo
+        Leer(ArchCli, C)
+
+        Si Existe Entonces
+            Escribir(C.NCli, F.Nombre, F.NFac)
+        Sino
+            Esc("Error, el cliente no existe")
+        FinSi
+        Lee(ArchFac, F)
+    FinMientras
+    CERRAR()
+FinAccion
+
+         
+

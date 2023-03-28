@@ -1,0 +1,30 @@
+Accion parcial (prim: puntero a nodo)es
+AMBIENTE
+    nodo = registro
+        num: entero
+        prox: puntero a nodo
+    fr
+    p, q, t: puntero a nodo
+
+PROCESO
+P:= prim
+    mientras (p.prox<>nil) hacer
+        numero := numero-digitos (p.numero)
+
+        nuevo(q)
+        *q.num := numero
+        q.prox := nil
+        si (prim = nil) entonces
+            prim := q
+        sino
+            t.prox := q
+        fs
+        t := q
+    fm
+
+    numero :=numero - digitos(p.prox)
+    nuevo(q)
+    *q.num := numero
+    *q.prox := nil
+    *t.prox := q
+FP

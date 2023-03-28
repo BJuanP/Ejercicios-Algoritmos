@@ -1,0 +1,16 @@
+Dados dos números enteros, divídalos (división entera) y muestre 
+el resultado, usando sólo la operación resta.
+
+Funcion Divi(a, b:entero):entero es
+
+    Si b = 0 entonces
+        Divi = 0
+    FinSi
+
+    Si a = 0 entonces
+        Divi = 0
+    Sino
+        Divi = 1 + Divi(a-b, b)
+    FinSi
+FinFuncion
+

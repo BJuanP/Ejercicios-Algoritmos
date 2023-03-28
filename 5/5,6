@@ -1,0 +1,25 @@
+Funcion Pares(n: entero):logico Es
+    si n=0 entonces
+        Pares:=verdadero
+    sino
+        si n>0 entonces
+            Pares:=pares(n-2)
+        sino
+            Pares:=Falso
+        FinSi
+    FinSi
+FinFuncion
+
+
+
+Funcion Pares(n: entero):logico Es
+    si n=0 entonces
+        Pares:=verdadero
+    sino
+        si n=1 entonces
+            Pares:= falso
+        sino
+            Pares:= Pares(n-2)
+        FinSi
+    FinSi
+FinFuncion

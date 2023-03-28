@@ -1,0 +1,24 @@
+Accion (Prim, p: puntero a NODO) Es
+AMBIENTE
+
+NODO = REGISTRO
+    Entero: N(6)
+    prox, ant: puntero a NODO
+FinRegistro
+
+Funcion Pares(n1, n2:entero):entero Es
+    Si n < 0 entonces
+        Pares:= 0       
+    Sino
+        n:= n MOD 10
+        Si n MOD 2 = 0 entonces
+            Pares:= 1
+        Sino
+            Pares:= 0
+        FinSi 
+        Pares:= n1 * Pares (n DIV 10)
+FinFuncion
+
+N1 = 3
+n2 = 238
+pares = 

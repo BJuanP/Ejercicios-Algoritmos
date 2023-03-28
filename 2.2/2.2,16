@@ -1,0 +1,67 @@
+Grupo 4
+Integrantes:
+Faccini Lautaro
+Escobar, Nélida María Luz
+
+Enunciado:
+Construir un algoritmo que a partir de un fichero de películas nuevas conteniendo:
+
+PELICULAS_NUEVAS Ordenado por Nro_Pelicula
+Nro_Pelicula Titulo Genero Cant_Copias Fecha_Estreno
+
+y otro fichero de peliculas existentes, ambos ordenados por película,
+
+PELICULAS Ordenado por Nro_Pelicula
+Nro_Pelicula Titulo Genero Cant_Copias Fecha_Estreno
+
+Genere un único archivo (con el mismo formato de los ficheros de entrada) que contenga todas las peliculas. Considerar que hay un solo registro por película y no se repiten entre ficheros.
+
+Desarrollo:
+ACCION pelisplus ES
+
+AMBIENTE
+	Fecha = Registro
+		Aa: N (4)
+		Mm, Dd: N (2)
+	Fin_Registro
+	Peliculas = Registro 
+		Nro_Pelicula: N(5)
+		Titulo: AN (10)
+		Genero: AN (15)
+		Cant_Copias: N (5)
+		Fecha_Estreno: Fecha
+	Fin_Registro
+
+	ArchP, ArchE, ArchS: Archivo de tipo Peliculas organizado por Nro_Pelicula
+	v1, v2, vS: Peliculas 
+
+	Subaccion Leer_v1 Es
+		Si (v1 = FDA) Entonces
+			v1.Nro_Pelicula:= HV
+		Fin_Si 
+	Fin_Subaccion
+
+	Subaccion Leer_v2 Es
+		Si (v2 = FDA) Entonces
+			v2.Nro_Pelicula:= HV
+		Fin_Si 
+	Fin_Subaccion
+
+PROCESO 
+Abrir E/(ArchP), Abrir E/(ArchE)
+Abrir/S (ArchS)
+Leer(ArchP, v1), Leer(ArchE, v2)
+
+Mientras (ArchP <> HV o ArchE <> HV) hacer
+	Si (v1.Nro_Pelicula < v2.Nro_Pelicula) entonces
+		vS:=v1
+		Escribir(ArchS, vS)
+		Leer_v1
+	Contrario 
+		vS:=v2
+		Escribir(ArchS, vS)
+		Leer_v2
+	Fin_Si 
+Fin_Mientras
+Cerrar (ArchP), Cerrar (ArchE), Cerrar (ArchS)
+FIN_PROCESO

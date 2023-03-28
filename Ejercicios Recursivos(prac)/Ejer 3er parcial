@@ -1,0 +1,52 @@
+
+
+
+funcion impar(n: entero):entero Es
+
+    Si n = 1 entonces
+        Impar:= 1
+    Sino
+        Si n > 0 Entonces
+            impar:= (n MOD 2) + impar(n DIV 10)
+        Sino
+            Impar:= 0
+        FinSi
+    FinSI
+    
+    Si Impar MOD 2 = 0 entonces
+        Impar:= 1  //paridad par de unos
+    Sino
+        impar:= 0  //paridad impar de unos
+    FinSi
+
+FinFuncion
+
+
+
+funcion impar(n, cont: entero):booleano Es
+
+    Si n < 9 entonces
+        si n = 0 entonces
+            cont:= cont + 0
+        Sino
+            Cont:= cont + 1
+        FinSi
+
+        si (cont mod 2) = 0 entocnes
+            impar:= falso
+        Sino
+            impar:= verdadero
+        FinSi
+        
+    Sino
+        Si (n MOD 10) = 0 entonces
+            cont:= cont + 0
+            impar:= impar(n div 10, cont)
+        Sino
+            cont:= cont + 1
+            impar:= impar(n DIV  10, cont)
+        FinSi
+    FinSi
+FinFuncion
+
+

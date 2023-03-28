@@ -1,0 +1,105 @@
+Accion NetflixArg Es
+Ambiente
+
+    FECHA = REGISTRO
+		AA: N (4)
+		MM: 1..12
+		DD: 1..31
+	FR;
+
+    Favs = Registro
+        CodPel:= N(6)
+        Nombre:= AN(60)
+        Genero:= N(6)
+        CantVistas:= N(6)
+        TotalRecom:= N(6)
+        Favorito:= ("1", "2", "3", "4", "5")
+    FInRegistro
+
+    Vistas = Registro
+        Fecha:= FECHA
+        Usuario:= AN(8)
+        CodPel:= N(6)
+        Recomendacion:= ("1", "2", "3", "4", "5")
+    FInRegistro
+
+    ArchF: Archivo de Favs indexado por CodPel
+    F: Favs
+    ArchV: Archivo de Vistas ordenado por Clave
+    V: Vistas
+
+    ContP: Entero
+    Drama: Entero
+    Thri: Entero
+    Comedia: Entero
+
+PROCESO
+    Abrir E/S (ArchF)
+    
+    Abrir E/ (ArchV)
+    Leer(ArchV, V)
+
+    ContP:= 0
+    Drama:= 0
+    Thri:= 0
+    Comedia:= 0
+
+    Mientras NFDA(ArchV) Hacer
+        F.CodPel:= V.CodPel
+        Leer(ArchF, F)
+        
+        Si Existe Entonces
+            F.CantVistas:= F.CantVistas + 1
+            F.TotalRecom:= F.TotalRecom + V.Recomendacion
+            F.Favorito:= (F.TotalRecom/F.CantVistas)
+            REDOND(F.Favorito)
+            Regrabar(ArchF, F)
+
+            Segun (F.Genero) Hacer
+            
+                ="1":Thri:= Thri + F.TotalRecom
+
+                ="2":Drama:= Drama + F.TotalRecom
+
+                ="3":Comedia:= Comedia + F.TotalRecom
+
+            FinSegun
+
+        Sino
+
+            Escribir("Ingrese el nombre de la pelicula y su genero")
+            Leer(Nombre)
+            Leer(Genero)
+
+            F.Nombre:= Nombre
+            F.Genero:= Genero
+            F.CantVistas:= F.CantVistas + 1
+            F.TotalRecom:= F.TotalRecom + V.Recomendacion
+            F.Favorito:= (F.TotalRecom/F.CantVistas)
+            REDOND(F.Favorito)
+
+            Regrabar(ArchF, F)
+
+        FinSi
+
+        ContP:= ContP + 1
+    FinMientras
+
+    Cerrar(ArchF)
+    Cerrar(ArchV)
+
+    Escribir("Cantidad de personas que recomendaron peliculas en Noviembre:", ContP)
+
+    Escribir("Ranking de peliculas")
+    Escribir(" ")
+    Escribir("Drama:", Drama)
+    Escribir("Comedia:", Comedia)
+    Escribir("Thriller:", Thri)
+FinAccion
+
+
+
+
+
+
+    Favorito = Favorito + (TotalRecomendacion/Cant vistas)

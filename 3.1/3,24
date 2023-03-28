@@ -1,0 +1,71 @@
+Accion  Es
+Ambiente
+
+Cajeros = Registro
+    ApeyNom
+    NroCaja:
+    Importe: N(10,2)
+    Horario: N(2,2)
+FinReg
+
+ArchCajeros: archivo de cajeros ordenado por ApeyNom
+
+M: Arreglo de [1..6, 1..11] de reales
+Reg:Cajeros
+i,j: entero
+horario: N(2,2)
+
+Procedure PONER_A_CERO es
+    Para i:= 1 hasta 11 hacer
+        Para j:= 1 hasta 6 hacer
+            M[i, j]:= 0
+        FinPara
+    FinPara
+FinSub
+
+Procedure Horarios Es
+    Segun Reg.Horario hacer
+        <10: j:= 1
+        <12: j:= 2
+        <16: j:= 3
+        <18: j:= 4
+        <20: j:= 5
+    FinSegun
+FinSub
+
+PROCESO
+
+PONER_A_CERO()
+
+Abrir E/(ArchCajeros)
+Leer (ArchCajeros)
+
+Mientras NFDA (ArchCajeros) hacer
+    i:= Reg.NroCaja
+
+    Horarios()
+
+    acumular en cada fila y columna
+    M[i, j]:= M[i, j] + Reg.Importe
+
+    acumular en total por Horarios
+
+    acumular en total por cajas
+
+    acumular el total general
+
+    Leer(A, Reg)
+FInMientras
+
+una vez cargada la matriz, cerrar el archivo
+
+mostrar los totales en pantalla por cajero
+
+
+mostrar en pantalla por horario 
+
+mostrar total general
+
+
+
+

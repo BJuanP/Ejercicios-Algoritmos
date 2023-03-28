@@ -1,0 +1,59 @@
+Se cuenta con una secuencia que contiene el Apellido y Nombre y Promedio General de los Graduados de una Facultad, y se solicita generar un 
+listado con diversas recomendaciones para cubrir vacantes en una importante Empresa. 
+Las mencionadas recomendaciones serán establecidas del siguiente modo: si el promedio es menor que 7, 
+la recomendación será negativa ("NO"); por el contrario, si el promedio es menor que 8, la recomendación 
+será positiva ("SI"); de lo contrario, si el promedio es menor que 9, la recomendación será favorable ("F"); 
+por último, si el promedio supera los 9 puntos, la recomendación será muy favorable("MF"). El listado deber respetar el siguiente formato:
+
+Apellido_Nombre Promedio Recomendación
+
+Además, se solicita la impresión del total de graduados que recibieron cada una de las recomendaciones, y el promedio global de los mismos.
+
+Accion Graduados Es
+Ambiente
+
+    Alu_G = Registro
+        ApyNom: alfanumerico(30)
+        Promedio: entero(2)
+        Recomendación: alfanumerico(3)
+    FinRegistro 
+
+    Arch: Archivo de Alu_G
+    Reg: Alu_G
+
+    ContG: entero
+    Cont7, Cont8, Cont9, Cont10: entero
+    Prom: real
+
+PROCESO
+    Abrir E/S(Arch)
+    Leer(Arch, Reg)
+
+    Mientras NFDA(Arch) hacer
+        Segun (Reg.Promedio) hacer
+            <7: Reg.Recomendacion:= "NO"
+                Escribir(Arch, Reg)
+                Cont7:= Cont7 + 1
+
+            <8: Reg.Recomendacion:= "SI"
+                Escribir(Arch, Reg)
+                Cont8:= Cont8 + 1
+
+            <9: Reg.Recomendacion:= "F"
+                Escribir(Arch, Reg)
+                Cont9:= Cont9 + 1
+
+            >=9: Reg.Recomendacion:= "MF"
+                Escribir(Arch, Reg)
+                Cont10:= Cont10 + 1   
+        FinSegun
+    Leer(Arch, Reg)
+    ContG:= ContG + 1
+    FinMientras
+    Cerar(Arch)
+
+    Escribir(Totales de recomendaciones:", Cont7,"Promedio:", (Cont7/ContG)*100)
+    Escribir(Totales de recomendaciones:", Cont8,"Promedio:", (Cont8/ContG)*100)
+    Escribir(Totales de recomendaciones:", Cont9,"Promedio:", (Cont9/ContG)*100)
+    Escribir(Totales de recomendaciones:", Cont10,"Promedio:", (Cont10/ContG)*100)
+FinAccion

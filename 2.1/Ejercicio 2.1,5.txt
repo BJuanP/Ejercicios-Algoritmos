@@ -1,0 +1,58 @@
+Mi forma
+
+Accion 2.1.4 Es
+Ambiente
+
+Soc: Secuencia de enteros
+S: entero
+Cont:Entero
+SocNC: Secuencia de enteros
+
+PROCESO
+    ARR(Soc)
+    AVZ(Soc, S)
+    CREAR(SocNC)
+    Cont:= 1
+
+    Mientras NFDS(Soc) Hacer
+        Si Cont = S Entonces
+            Cont:= Cont + 1 
+        Sino
+            Mientras Cont <> S Hacer
+                Escribir(SocNC, S)
+                Cont:= Cont + 1
+            FinMientras
+        FinSi
+    Avz(Soc, S)
+    FinMientras
+    CERRAR(Soc)
+    CERRAR(SocNC)
+FinAccion
+
+Otra forma
+
+Acción 2.1.5 Es
+Ambiente
+
+Soc: secuencia de entero
+SocNC: secuencia de entero
+S: entero
+cont: entero
+
+PROCESO
+    CREAR(SocNC)
+    ARR(Soc)
+    AVZ (Soc, S)
+    cont:= 1
+
+    Mientras NFDS(Soc) hacer
+        Mientras cont < S hacer
+            Esc (SocNC, cont)
+            cont:= cont + 1
+        Fin Mientras
+        AVZ(Soc, S)
+        cont:= cont + 1
+    Fin mientras
+    Cerrar(Soc)
+    Cerrar(SecNC)
+FinAccion

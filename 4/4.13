@@ -1,0 +1,39 @@
+Accion (PRIM, p:puntero a nodo) es
+ambiente
+
+NODO = Registro
+    numero:entero
+    prox, ant: puntero a NODO
+FinRegistro
+
+PROCESO
+
+p:=PRIM
+
+Si p = null entonces
+    Escribir("Error. Lista vacía")
+Sino
+    Mientras p <> Null hacer
+        Si *p.numero < *(*p.prox).numero entonces
+            p:=*p.prox
+        Sino
+            p:=null
+            Escribir("Error")
+        FinSi
+    FinMientras
+FinSi
+
+p:=PRIM
+q:=*p.prox
+
+Mientras p <> null hacer
+    Si *p.numero = *q.numero entonces
+        p:= *q.prox
+        *(*q.prox).ant:=p
+        q:=*(q*prox).prox
+    Sino
+        p:= *p.prox
+        q:= *q.prox
+    FinSi
+FinMientras
+FinAccion

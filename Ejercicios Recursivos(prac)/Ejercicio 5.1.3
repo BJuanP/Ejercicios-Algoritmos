@@ -1,0 +1,19 @@
+
+
+Funcion Poten(a, b: entero):entero Es
+
+    Si a = 0 entonces
+        Poten:= 0
+    Sino
+        Si b > 0 entonces
+            Si b = 1
+                Poten:= a
+            Sino
+                Poten:= a * Poten(a, b-1)
+            FinSi
+        Sino
+            Poten:= 1
+        FinSi
+    FinSi 
+
+FinFuncion 

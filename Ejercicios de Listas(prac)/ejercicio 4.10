@@ -1,0 +1,96 @@
+Accion corneta(Prim, Ult, p: puntero a Nodo) Es
+Ambiente
+
+
+NODO: registro
+    valor: entero
+    prox: puntero a NODO
+FinRegistro
+
+LCD: Registro
+    valor: entero
+    grupo: entero
+    prox, ant: puntero a LCD
+FinRegistro
+
+Prim1, Ult1, p1, Ant1, q1: puntero a LCD
+
+may, men: entero
+
+PROCESO
+
+Prim1:= NIL
+Ult1:= NIL
+Grupo:= 0
+
+may:= LV
+men:= HV
+
+Mientras p <> NIL hacer
+
+    cont:= *p.valor
+    p:= p.prox
+    
+    Para i:= 1 hasta cont Hacer
+        Prom:= Prom + *p.valor
+        contProm:= contProm + 1
+        p:= p.prox
+    FinPara
+    
+    Grupo:= Grupo + 1
+    Prom:= Prom/contProm
+    
+    Nuevo(q1)
+    *q1.grupo:= Grupo
+    *q1.valor:= Prom
+    Leer(q1)
+    
+    Si Prim1 = NIL Hacer
+        *q1.prox:= NIL
+        *q1.ant:= NIL 
+        Prim1:= q1  
+        Ult1:= q1
+    Sino
+        p1:= Prim1
+        
+        Mientras (p1.prox <> Prim1) y (*q1.valor > *p1.valor) hacer
+            p1:= p1.prox
+        FinMientras
+
+        Si p1 = Prim1 entonces
+            *q1.prox:= Prim1
+            *q1.ant:= Nil
+            *p.ant:= q1
+            Prim1:= q1
+        Sino
+            Si p1 = NIL Entonces  
+                *q1.prox:= NIL
+                *q1.ant:= Ult1
+                *Ult1.prox:= q1
+                Ult1:= q1
+            Sino
+                *q1.prox:= p1
+                *q1.ant:= *p1.ant
+                *p1.ant:= q1
+                *(*p.ant).prox:= q1
+            FInSI
+        FInSI
+
+        Si *p1.Valor > may entonces
+            may:= *p1.Valor
+        FinSi
+
+        Si *p.cant < men entonces
+            men:= *p1.Valor
+        FinSi
+
+    FinSi
+
+    Prom:= 0
+    ContProm:= 0
+FinMientras
+
+Escribir("Mayor promedio:", may)
+Escribir("Menor promedio:", men)
+
+FinAccion

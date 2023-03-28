@@ -1,0 +1,95 @@
+Accion Subsecuencia Es
+Ambiente
+
+NODO: Registro
+    letra: Caracter
+    cant: N(6)
+    prox: puntero a NODO
+FinRegistro
+
+PRIM, q, p: puntero a NODO
+
+sec: Secuencia de Caracter
+a: Caracter
+
+may, men: entero
+mayl, menl: caracter
+
+PROCESO
+arr(Sec)
+avz(Sec, a)
+
+may:= LV
+men:= HV
+
+PRIM = NIL
+
+Mientras NFDS(Sec) Hacer
+
+    Mientras (a = " ") Hacer
+        Avz(Sec, a)
+    FinMientras
+
+    SI PRIM = NIL entonces
+        Nuevo(q)
+        *q.letra:= a
+        *q.cant:= 1
+        leer(q) 
+
+        PRIM:= q
+        *q.prox:= NIL
+
+    Sino
+        p:= PRIM
+
+        Mientras (a >= *p.letra) y (p <> NIL) hacer
+            p:= p.prox
+        FinMientras
+
+        Si a = *p.letra entonces
+            *p.cant:= *p.cant + 1
+            Leer(p)
+        Sino
+
+            Nuevo(q)
+            *q.letra:= a
+            *q.cant:= 1
+            leer(q)
+
+            Si P = PRIM entonces
+                *q.prox:= PRIM
+                PRIM:= q
+            Sino
+                Si P = NIL entonces
+                    *(*p.ant).prox:= q
+                    *Q.prox:= Null
+                Sino
+                    *q.prox:= p
+                    *(*p.ant).prox:= q
+                FinSi
+            FinSi
+        FinSi
+    FinSi
+
+    Avz(Sec, a)
+FinSi
+
+Mientras P <> NIL Hacer
+    Escribir("La Frecuencia de la letra", *p.letra, "es de:", *p.cant)
+
+    Si *p.cant > may entonces
+        mayl:= *p.letra
+    FinSi
+
+    Si *p.cant < men entonces
+        menl:= *p.letra
+    FinSi
+
+    p:= p.prox
+FinMientras
+
+Escribir("La letra de mayor frecuencia fue la:", mayl)
+Escribir("La letra de menor frecuencia fue la:", menl)
+
+Cerrar(Sec)
+FinAccion

@@ -1,0 +1,49 @@
+Accion ejer1 Es
+
+NODO = Registro
+    Valor: N(6)
+    prox, ant: puntero a NODO
+FinRegistro
+
+Prim, Ult, p, q: puntero a NODO 
+
+Valor: N(4)
+
+PROCESO
+
+Prim:= Nil
+
+Para i:= 1 hasta 30, +1 hacer
+    Escribir("Ingrese un valor")
+    Leer(ValorI)
+
+    Nuevo(q)
+    *q.Valor:= ValorI
+    Leer(q)
+
+    Si Prim = Nil Entonces
+        *q.prox:= Nil
+        *q.ant:= Nil
+        Prim:= q
+        Ult:= q
+    Sino
+        p:= Prim
+        
+        *q.prox:= p
+        *q.ant:= Ult
+        *Ult.prox:= q
+        *p.ant:= q
+        Prim:= q
+    FinSi
+FinPara
+
+p:= Prim
+
+Para i:= 1 hasta n, -1 hacer
+
+    *p.valor:= *p.valor/n
+    Leer(p)
+    p:= *p.prox
+
+FinPara
+FinAccion

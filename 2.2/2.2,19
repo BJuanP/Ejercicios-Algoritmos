@@ -1,0 +1,83 @@
+Accion Farmacia ES
+Ambiente
+
+    Fecha = Registro
+        Dia: N(2)
+        Mes: N(2)
+        Año: N(4)
+    FinReg
+
+    Mae_Remedios = Registro
+        Clave = Registro
+            Farmacia: AN(20)
+            Medicamento: AN(20)
+        FinReg
+        Cant_Actual: N(6)
+        Fecha_Vencimiento: Fecha
+    FinReg
+
+    Movimientos = Registro
+        Clavem = Registro
+            Farmacia: AN(20)
+            Medicamento: AN(20)
+            Cod_Mov: ("1", "2", "3")
+        FinReg
+        Cant_Recibida: N(8)
+    FinReg
+
+    Rem_Venc = Registro
+        Medicamento: AN(20)
+        Cant_Vencida: N(6)
+    FinReg
+
+    Rem, Sal: archivo de Mae_Remedios ordenado por Clave
+    r: Clave
+    Mov: Archivo de Movimiento Ordenado por clavem
+    m: clavem
+    Rem_Ven: Archivo de Rem_Venc ordenaddo por Medicamento
+    rv: Rem_Venc
+
+PROCESO
+    Abrir E/ (Rem)
+    Abrir E/ (Mov)
+    Abrir E/ (Rem_Ven)
+    Abrir S/ (Sal)
+
+    Mientras NFDA(Rem) y NFDA(Mov) hacer
+        Si clave < clavem entonces
+            GRABAR(Sal, r)
+            Leer(Rem, r)
+        Sino
+            Si Clave = Clavem 
+                Segun (Cod_Mov) hacer
+
+                    = 1: Escribir("Error")
+                    
+                    = 2: GRABAR(Rem_Ven, r)
+
+                    = 3: r.Cant_Actual:= m.Cant_Recibida
+                         GRABAR(Rem, r)
+                    
+                    Leer(Rem, r)
+                FinSegun
+            Sino
+                Si Cod_Mov = 1 entonces
+                    r.Cant_Actual:= m.Cant_Recibida
+                    r.Fecha_Vencimiento:= +30
+                    GRABAR(Sal, r)
+                    Leer(Rem, r)
+                Sino
+                    Escribir("Error")
+                    Leer(Rem, r)
+                FinSi
+            FinSi
+        FinSi
+    FinMientras
+    
+    Cerrar(Rem)
+    Cerrar(Mov)
+    Cerrar(Rem_Ven)
+    Cerrar(Sal)
+FinAccion
+
+ESTÁ RE MAL, HAY QUE VER COMO HIZO EL PROFE

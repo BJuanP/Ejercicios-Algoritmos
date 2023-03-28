@@ -1,0 +1,66 @@
+Accion X Es
+Ambiente
+
+    Maestro = Registro
+        NroTerreno:= N(5)
+        Zona:= A..F
+        Ubicacion:= 1..10
+        Superficie:= N(6)
+        Valor:= N(8)
+    FinReg
+
+    Movimiento = Registro
+        NroTerreno:= N(5)
+        Zona:= A..F
+        Ubicacion:= 1..10
+        Superficie:= N(6)
+        Cod_Mov:= ("A", "B", "C")
+    FinReg
+
+    Mae: Archivo de Maestro ordenado por Nro Terreno
+    MaeSal: Archivo de Maestro ordenado por Nro Terreno
+    M: Maestro
+    Mov: Archivo de Movimiento ordenado por NroTerreno
+    V: Movimiento
+
+    ValMZon: Entero
+    Incremento: Entero
+
+    Procedimiento LeerMae Es
+        Leer(Mae, M)
+        Si FDA(Mae) Entonces
+            M.NroTerreno:= HV
+        FinSi
+    FinProcedimiento
+
+    Procedimiento LeerMov Es
+        Leer(Mov, V)
+        Si FDA(Mov) Entonces
+            V.NroTerreno:= HV
+        FinSi
+    FinProcedimiento
+ 
+PROCESO
+    Abrir E/(Mae)
+    Abrir /S(MaeSal)
+    Abrir E/(Mov)
+
+    LeerMae
+    LeerMov
+
+    Escribir("Ingrese el valor del M² por zona")
+    Leer(ValMZon)
+
+    Mientras (M.NroTerreno <> HV) y (V.NroTerreno <> HV) hacer
+        Si M.NroTerreno > V.NroTerreno Entonces
+
+        Sino
+            Si M.NroTerreno > V.NroTerreno entonces
+                M:= V
+                M.Zona:= V.Zona
+                M.Valor:= M.Superficie * ValMZon
+                Grabar(MaeSal, M)
+
+
+
+

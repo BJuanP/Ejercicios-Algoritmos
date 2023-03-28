@@ -1,0 +1,9 @@
+Recorrer un array de forma recursiva para sumar sus elementos.
+
+Funcion Arreglo(n:entero):entero
+    Si n = 0 entonces
+        Arreglo:= 0
+    Sino
+        Arreglo:= Vector[n] + Arreglo(n-1)
+    FinSi
+FinFuncion

@@ -1,0 +1,25 @@
+Accion  Es
+Ambiente
+
+sec: Secuencia de Caracter
+a: Caracter
+Voc: caracter
+Cont: entero
+
+PROCESO
+    ARR(sec)
+    AVZ(sec, a)
+    cont:= 0
+    Voc:= "A"
+
+    Mientras a <> "*" Hacer
+        Si a = Voc Entonces
+            Cont:= Cont + 1
+            AVZ(sec, a)
+        Sino
+            AVZ(sec, a)
+        FinSi
+    FinMientras
+    Cerrar(sec)
+Escribir("La cantidad de letras A que hay en la secuencia es de:", cont)
+FinAccion

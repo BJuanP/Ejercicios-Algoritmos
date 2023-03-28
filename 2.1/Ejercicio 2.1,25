@@ -1,0 +1,61 @@
+Accion Intercalado Es
+Ambiente
+
+Sec1: secuencia de caracter
+A: caracter
+
+SecS1: secuencia de caracter
+SecS2: secuencia de entero
+
+Voc= {"a","e","i","o","u"}
+
+ContV, ContP, ContO, Prom: entero
+
+PROCESO
+ARR(Sec1)
+Avz(Sec1, A)
+Crear(SecS1)
+Crear(SecS2)
+
+ContV, ContP, ContO:= 0
+Prom:= 0
+
+Mientras NFDS(Sec1) Hacer
+    Mientras A <> "." hacer
+        Si (A en Voc) Entonces
+            Mientras A <> " " y A <> "." Hacer
+                Si (A en Voc) Entonces
+                    Escribir(SecS1, "#")
+                    ContV:= ContV + 1
+                Sino
+                    Escribir(Sec1, A)
+                FinSi
+                Avz(Sec1, A)
+            FinMientras
+            ContP:= ContP + 1
+            Escribir(SecS2, ContV)
+            ContV:= 0
+            Escribir(SecS1, " ")
+        Sino
+            Mientras A <> " " hacer
+                Avz(Sec1, A)
+            FinMientras
+            ContP:= ContP + 1
+        FinSi
+        Avz(Sec1, A)
+    FinMientras
+    ContO:= ContO + 1
+    Avz(Sec1, A)
+FinMientras
+Prom:= ContP DIV ContO
+Escribir("El promedio de palabras por oracion es de: ", Prom)
+Cerrar(Sec1)
+Cerrar(SecS1)
+Cerrar(SecS2)
+FinAccion
+
+Sec1: as1earg fdasf a asd grev. as1earg fdasf a asd grev.
+SecS1: #s1##rg # #sd 
+SecS2: 3 1 1
+
+ContV: 0

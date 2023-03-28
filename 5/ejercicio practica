@@ -1,0 +1,14 @@
+funcion digitoAusente(num, dig: entero):logico es
+    si (num MOD 10 = dig) entonces
+        digitoAusente:= falso
+    sino
+        si (num div 10 <> 0) entonces
+            digitoAusente:= digitoAusente(num DIV 10, dig)
+        sino
+            digitoAusente:= Verdadero;
+        FinSi
+    FinSi
+FinFuncion
+
+num= 156
+dig= 6

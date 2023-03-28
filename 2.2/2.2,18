@@ -1,0 +1,91 @@
+Grupo 4
+Integrantes:
+Faccini Lautaro
+Escobar Nélida María Luz
+
+
+Enunciado:
+Un supermercado desea conocer la totalidad de unidades existentes de cada artículo a fin de hacer un control de stock y decidir si se deben
+comprar nuevas unidades o redistribuir la mercadería existente.
+
+El supermercado posee dos sucursales, cada una de las cuales envió su información en un fichero con el siguiente formato:
+
+Artículos
+Cod_Prod Tipo Marca Descripción Cant_Unidades
+
+Escribir un algortimo que permita obtener un único fichero de salida, con el mismo formato, que contenga la información solicitada y además, 
+emita un listado con los siguientes datos:
+
+Cod_Prod	Tipo	Marca	Descripción	Cant_Suc_1	Cant_Suc_2	Total_Unidades
+
+DESARROLLO:
+ACCION supermercado ES
+
+AMBIENTE
+	Articulos = Registro
+		Cod_Prod: N(10)
+		Tipo: AN(4)
+		Marca: AN(5)
+		Descripción: AN(20)
+		Cant_Unidades: N(2)
+	Fin_Registro
+
+	Arch1, Arch2, ArchS: Archivo de tipo Articulos ordenado por Cod_Prod
+	v1, v2, vS: Articulos
+
+	Cant_Suc_1, Cant_Suc_2, total: Entero 
+
+PROCESO
+Abrir E/(Arch1), Abrir E/(Arch2)
+Abrir/S (ArchS)
+Leer(Arch1, v1), Leer(Arch2, v2)
+Mientras (NFDA(Arch1) y NFDA(Arch2)) hacer
+	Si (v1.Cod_Prod < v2.Cod_Prod) entonces
+		vS:=v1
+		Escribir(ArchS, vS)
+		Cant_Suc_1:= v1.Cant_Unidades
+		Cant_Suc_2:=0
+		total:= Cant_Suc_1
+		Leer(Arch1, v1)
+	Contrario
+		Si (v1.Cod_Prod > v2.Cod_Prod) entonces
+			vS:=v2
+			Escribir(ArchS, vS)
+			Cant_Suc_1:=0
+			Cant_Suc_2:= v2.Cant_Unidades
+			total:= Cant_Suc_2
+			Leer(Arch2, v2)
+		Contrario
+			vS:=v1
+			Cant_Suc_1:= v1.Cant_Unidades
+			Cant_Suc_2:= v2.Cant_Unidades
+			total= v1.Cant_Unidades + v2.Cant_Unidades
+			vS.Cant_Unidades:=total
+			Escribir(ArchS, vS)
+			Leer(Arch2, v2), Leer(Arch1, v1)
+		Fin_Si 
+	Fin_Si
+	Escribir("Codigo de Producto:", vS.Cod_Prod, "Tipo de Producto:", vS.Tipo, "Marca del producto:", vS.Marca)
+	Escribir("Descripción:", vS.Descripción, "Total de Unidades de la Sucursal 1:", Cant_Suc_1)
+	Escribir("Total de Unidades de la Sucursal 2:", Cant_Suc_2, "Total de Unidades:", total)
+Fin_Mientras
+Mientras (NDFA(Arch1)) hacer
+	vS:=v1
+	Escribir(ArchS, vS)
+	Cant_Suc_1:= v1.Cant_Unidades
+	Escribir("Codigo de Producto:", v1.Cod_Prod, "Tipo de Producto:", v1.Tipo, "Marca del producto:", v1.Marca)
+	Escribir("Descripción:", v1.Descripción, "Total de Unidades:", Cant_Suc_1)
+	Leer(Arch1, v1)
+Fin_Mientras
+Mientras (NFDA(Arch2)) hacer
+	vS:=v2
+	Escribir(ArchS, vS)
+	Cant_Suc_2:= v2.Cant_Unidades
+	Escribir("Codigo de Producto:", v2.Cod_Prod, "Tipo de Producto:", v2.Tipo, "Marca del producto:", v2.Marca)
+	Escribir("Descripción:", v2.Descripción, "Total de Unidades:", Cant_Suc_2)
+	Leer(Arch2, v2)
+Fin_Mientras
+Cerrar(Arch1)
+Cerrar(Arch2)
+Cerrar(ArchS)
+FIN_PROCESO

@@ -1,0 +1,17 @@
+
+
+
+
+
+Funcion MCD(m, n: entero):entero Es
+
+    Si n = 0 entonces
+        MCD:= m
+    Sino
+        MCD:= MCD(n, m MOD n)
+    FinSi
+
+FinFuncion
+
+
+

@@ -1,0 +1,74 @@
+Una casa deportiva dispone de un archivo de productos, ordenado por 
+código de producto, que contiene los siguientes datos:
+
+PRODUCTOS Ordenado por Cod_Producto
+
+Cod_Producto
+Tipo (1,2,3)
+Marca
+Modelo
+Descripción
+Cantidad_Existente
+Precio_Unitario
+
+Se ha registrado en el mercado un aumento de precios, el cual no es uniforme 
+para todos los artículos, sino que varía según el tipo de los mismos de la 
+siguiente manera: 
+tipo 1- Calzados: 10%, tipo 2 – Indumentaria: 25%, tipo 3 - Accesorios (pelotas, raquetas, etc.): 50%. 
+Por este motivo el gerente de la empresa solicitó al Departamento de Informática que modifique los precios 
+de acuerdo a los porcentajes antes mencionados.
+Generar un nuevo fichero de productos para cumplir con la solicitud del gerente.
+Al terminar el proceso informar cantidad total de artículos de cada tipo que hay y total general.
+
+
+Accion Deportiva Es
+Ambiente
+
+
+Productos = Registro
+    Cod_Prod: entero(6)
+    Tipo: 1...3
+    Marca: an(20)
+    Modelo: an(30)
+    Descripción: an(50)
+    Cant_Exis: entero(7) 
+    Precio_Uni: real(4,2)
+FinRegistro
+
+Prod, ProdS: archivo de productos ordenado por Cod_Producto
+Reg1, Reg2: productos
+
+Cont1, Cont2, Cont3: entero
+
+
+PROCESO
+Abrir E/ (Prod)
+Leer(Prod, Reg1)
+Abrir S/ (ProdS)
+Cont1, Cont2, Cont3:= 0
+
+Mientras NFDA(Prod) hacer
+    Reg2:= Reg1
+    Segun (Reg1.tipo) hacer 
+        =1: Reg2.Precio_Uni:= Reg.Precio_Uni * 1,10)
+            Cont1:= Cont1 + 1
+
+        =2: Reg2.Precio_Uni:= Reg.Precio_Uni * 1,25)
+            Cont2:= Cont2 + 1
+
+        =3: Reg2.Precio_Uni:= Reg.Precio_Uni * 1,50)
+            Cont3:= Cont3 + 1
+    FinSegun
+
+    GRABAR(ProdS, Reg2)
+    Leer(Prod, Reg1)
+FinMientras
+Cerrar(Prod)
+Cerrar(ProdS)
+
+Escribir("productos 1:", Cont1)
+Escribir("productos 2:", Cont2)
+Escribir("productos 3:", Cont3)
+Escribir("Total de productos:", Cont1 + Cont2 + Cont3)
+
+FinAccion

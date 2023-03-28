@@ -1,0 +1,68 @@
+Accion 2.3.3 Es
+Ambiente
+
+    Peaje = Registro
+        Patente: AN(6)
+        Fecha: N(8)
+        Ult_Hora: N(4)
+        Costo: N(3,2)
+    FinReg
+
+    ArchPea: Archivo de Peaje Indexado por Patente y fecha
+    P: Peaje
+
+    Categoria: Entero
+    Band: Logico
+    Patente: AN
+    Fecha: Entero
+    Resp: AN
+
+PROCESO
+    Abrir E/S(ArchPea)
+
+    Band:= True
+
+    Mientras Band hacer
+
+        Escribir("Ingrese su patente y la fecha de hoy")
+        Leer(Patente)
+        Leer(Fecha)
+
+        P.Patente:= Patente
+        P.Fecha:= Fecha
+        Leer(ArchPea, P)
+
+        Si Existe Entonces
+                Escribir("Usted ya a pasado")
+        Sino
+            Escribir("Ingrese la categoria a la que pertenece")
+            Leer(Categoria)
+            Segun (Categoria) hacer
+
+                =1:Escribir("El total a pagar es de 1,20")
+                    Costo:= 1,20
+
+                =2:Escribir("El total a pagar es de 2,50")
+                    Costo:= 2,50
+
+                =3:Escribir("El total a pagar es de 4,00")
+                    Costo:= 4,00
+
+                =4:Escribir("El total a pagar es de 5,00")
+                    Costo:= 5,00
+            FinSegun
+
+            P.Ult_Hora:= HoraActual()
+            P.Costo:= Costo
+            Grabar(ArchPea, P)
+        FinSi
+
+        Escribir("Quiere seguir? si/no")
+        Leer(Resp)
+        Si Resp = "no" Entonces
+            Band:= False
+        FinSi
+    FinMientras
+    
+    Cerrar(ArchPea)
+FinAccion

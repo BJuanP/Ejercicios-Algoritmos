@@ -1,0 +1,53 @@
+Accion depuracion (Prim, p: puntero a NODO)
+Ambiente
+
+NODO: registro
+    valor: entero
+    prox, ant: puntero a NODO
+FinRegistro
+
+q: puntero a NODO 
+
+Proceso
+
+p:= Prim
+q:= p.prox 
+
+Mientras (q <> Nil) y (*p.valor <= *q.valor) hacer
+    p:= p.prox
+    q:= q.prox
+FinMientras
+
+Si q = Nil Entonces
+    p:= Prim
+    q:= p.prox
+    Mientras (p <> Nil) hacer
+        
+        Mientras (*p.valor <> *q.valor) y (q <> Nil) hacer
+            p:= p.prox
+            q:= q.prox
+        FinMientras   
+
+        Si q = Nil Entonces
+            Escribir("EXITO")
+        Sino
+            Si *q.prox = Nil entonces
+                *p.prox:= Nil
+                Disponer(q)
+            Sino
+                *p.prox:= *q.prox
+                *(*q.prox).ant:= p
+                Disponer(q)
+                q:= *p.prox
+            FinSi
+        FInSI
+        
+    FinMientras
+Sino
+    Escribir("ERROR.")
+FinSi
+
+
+
+
+

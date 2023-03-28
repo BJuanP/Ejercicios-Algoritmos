@@ -1,0 +1,32 @@
+no retorna nada, solo escribe por pantalla
+los algoritmos siguen siendo iguales
+
+Imprimir las cifras de un número n (siendo n ≥ 0) en orden inverso al original. 
+Por ej.: el inverso de 254 es 452.
+
+Procedimiento laVuelta(n:entero) Es
+    Si n > 0 entonces
+        b = n MOD 10
+        inv= inv * 10 + b
+
+        Si n < 10 entonces
+            Escribir(inv)
+        Sino
+            laVuelta(n DIV 10)
+        FinSi
+    FinSi
+FinProcedimiento
+
+
+
+//5.2.1 CORREGIDO POR EL PROFE
+
+
+PROCEDIMIENTO inverso (n: entero) ES
+
+    Escribir (n mod 10)
+
+    Si n < 10
+        inverso(n div 10)
+     Fin Si
+FIN PROCEDMIENTO

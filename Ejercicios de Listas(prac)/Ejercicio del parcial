@@ -1,0 +1,143 @@
+Accion Proyecto(Prim, p: Puntero a NODO) Es
+Ambiente
+
+Proyectos = Registro
+    COD
+    NOM
+    TIPO
+    CANT_ERR
+FinRegistro
+
+Arch: Archivo de Proyectos ordenado por COD
+reg: Proyectos
+
+NODO = Registro
+    Desc: AN(250)
+    Estado: "N", "O", "R"
+    prox: puntero a NODO
+FinRegistro
+
+NODO1 = Registro
+    COD1
+    NOM1
+    prox, ant: puntero a NODO
+FinRegistro
+
+NODO2 = Registro
+    COD2
+    NOM2
+    POR
+    prox, ant: puntero a NODO
+FinRegistro
+
+Prim1, Ult1, p1, q1: puntero a NODO1
+Prim2, Ult2, p2, q2: puntero a NODO2
+
+N, O, R, ContNR, ContTotal, cont: entero
+
+PROCESO
+ARR(Arch)
+Leer(Arch, Reg)
+
+Prim1:= Nil
+Prim2:= Nil 
+
+p:= Prim 
+ContTotal:= 0
+ContNR:= 0
+
+Mientras NFDA(Arch) hacer
+    cont:= Reg1.CANT_ERR
+    N:= 0
+    O:= 0
+    R:= 0
+
+    Para i:=1 hasta cont, 1 hacer
+        Segun *p.Estado hacer
+            = "N": N:= N + 1
+            = "O": O:= O + 1
+            = "R": R:= R + 1
+        FinSegun
+        p:= *p.prox
+    FinPara
+
+    ContTotal:= N + O + R
+    Si N = ContTotal entonces 
+        ContNR:= ContNR + 1
+    FInSI
+    
+    Si R = ContTotal entonces
+
+        Nuevo(q1)
+        *q1.COD1:= Reg.COD
+        *q1.NOM1:= Reg.NOM
+        Leer(q1)
+
+        Si Prim1 = Nil entonces
+            *q1.prox:= Nil
+            *q1.ant:= Nil
+            Prim1:= q1
+            Ult1:= q1
+        Sino
+            p1:= Prim1
+
+            *q1.prox:= p1
+            *q1.ant:= Nil
+            *p1.ant:= q1
+            Prim1:= q1
+        FinSi              
+    FinSi
+
+    Porcentaje:= ((R+0)*100)/ContTotal
+    Si Porcentaje > 50 entonces
+
+        Nuevo(q2)
+        *p2.COD1:= Reg.COD
+        *p2.NOM1:= Reg.NOM
+        *p2.POR:= Porcentaje
+        Leer(q2)
+
+        Si Prim2 = Nil entonces
+            *q2.prox:= Nil
+            *q2.ant:= Nil
+            Prim2:= q2
+            Ult2:= q2
+        Sino
+            P2:= Prim2
+            Mientras (p2 <> Nil) y (Porcentaje < *p2.POR) hacer
+                p:= p.prox
+            FinMientras
+
+            Si p2 = Prim2 entonces
+                *q2.prox:= p2
+                *q2.ant:= Nil
+                *p2.ant:= q2
+                Prim2:= q2
+            Sino
+                Si p2 = Nil entonces
+                    *q2.prox:= Nil
+                    *q2.ant:= p2
+                    *p2.prox:= q2
+                    Ult2:= q2
+                Sino
+                    *q2.prox:= p2
+                    *q2.ant:= *p2.ant
+                    *(*p.ant).prox:= q2
+                    *p2.ant:= q2
+                FInSI
+            FInSi
+        FinSI
+    FinSI           
+    Leer(Arch, Reg)
+
+FinMientras
+
+Cerrar(Arch)
+Escribir("La cantidad de proyectos con errores no resueltos:", ContNR)
+FInACCION
+
+
+
+
+        
+        

@@ -1,0 +1,23 @@
+Accion Arbol(v: puntero a N) Es
+Ambiente 
+
+N = Registro
+    Dato: entero
+    Izq, Der: puntero a N
+FinRegistro
+
+Subaccion PostOrden(p: puntero a N) Es
+    Si p <> Null Entonces
+        Escribir(Raiz)     
+        PostOrden(*p.Izq)
+        PostOrden(*p.Der)
+    FinSi
+FinSubaccion     
+    
+PROCESO 
+
+PostOrden(v)
+
+FinAccion
+
+

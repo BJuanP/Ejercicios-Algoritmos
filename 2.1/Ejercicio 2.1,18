@@ -1,0 +1,56 @@
+Escribir un algoritmo que produzca una secuencia de salida que contenga 
+una oración formada por por las palabras en posición par de cada oración 
+de una secuencia texto de entrada, que además comienzan con la letra 'M'.
+
+Accion M Es
+Ambiente
+
+Sec: secuencia de caracter
+v: caracter
+SecS: secuencia de caracter
+Cont:= Entero
+
+PROCESO
+    ARR(Sec)
+    Avz(Sec, v)
+    Crear(SecS)
+    Cont:= 0
+
+    Mientras NFDS(Sec) Hacer
+        Si Cont = 0 Entonces   
+            Mientras v <> " " Hacer
+                Avz(Sec, S)
+            FinMientras
+            
+            Mientras v = " " Hacer              Sec: men  maser mas grgst mias melo
+                Avz(Sec, s)                     Cont= 0
+            FinMientras                         SecS: maser melo .
+            Cont:= 1
+        Sino
+            Cont:= 0
+            Si v = "M" Entonces
+                Mientras v <> " " Hacer
+                    Escribir(SecS, v)
+                    Avz(Sec, S)
+                FinMientras
+
+                Mientras v = " " Hacer
+                    Avz(Sec, s)
+                FinMientras
+
+                Escribir(SecS, " ")
+            Sino
+                Mientras v <> " " Hacer
+                 Avz(Sec, S)
+                FinMientras
+
+                Mientras v = " " Hacer
+                    Avz(Sec, s)
+                FinMientras
+            FinSi
+        FinSi
+    FinMientras
+    Escribir(SecS, ".")
+    Cerrar(Sec)
+    Cerrar(SecS)
+FinAccion

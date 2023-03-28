@@ -1,0 +1,38 @@
+Accion Aguinaldo es
+Ambiente
+
+NyP:= Alfanumerico
+Horas_T:= Numerico
+Turno:= Caracter
+Sal_Hora:= Real
+Aguinaldo:= Numerico
+Horas_Sum:= Numerico
+
+PROCESO 
+Escribir("Ingrese su nombre y apellido")
+Leer(NyP)
+Escribir("Ingrese las horas trabajadas")
+Leer(Horas_T)
+Escribir("Ingrese el turno de trabajo")
+Leer(Turno)
+Escribir("Ingrese el salario por hora")
+
+Horas_Men:= Horas_T*4
+Aguinaldo:= (Horas_T*Sal_Hora)*4
+
+Segun (Turno) Hacer
+    ="T":   Aguinaldo:= 0
+            Sal_Hora:= Sal_Hora+(Sal_Hora*0.05)
+            Aguinaldo:= (Horas_T*Sal_Hora)*4
+    
+    ="N":   Aguinaldo:= Aguinaldo+(Aguinaldo*0.10)
+FinSegun
+
+Si Horas_Men > 40 Entonces
+    Horas_Sum:= Horas_Men - 40
+    Aguinaldo:= Aguinaldo+(Sal_Hora*Horas_Sum)
+FinSi
+
+Escribir("Hola", NyP,"Su aguinaldo es de: ", Aguinaldo)
+
+FinAccion 

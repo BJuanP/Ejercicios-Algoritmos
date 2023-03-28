@@ -1,0 +1,39 @@
+Ejercicio 2.1.7 Es
+Ambiente
+ 
+Hab: Secuencia de Enteros
+h: Entero
+may18M, may18F: Entero
+men18M, men18F: Entero
+Cont: Entero
+
+PROCESO
+    ARR(hab)
+    AVZ(hab, h)
+    may18M, may18F:= 0
+    men18M, men18F:= 0
+    cont:= 0
+
+    Mientras NFDS(Hab) Hacer
+        Si Edad(h) > 18 Entonces
+            Si genero(h) = masculino Entonces
+                may18M:= may18M + 1
+            Sino
+                may18F:= may18F + 1
+            FinSi 
+        Sino
+            Si genero(h) = masculino Entonces
+                men18M:= men18M + 1
+            Sino
+                men18F:= men18F + 1
+            FinSi
+        FinSi
+        Cont:= Cont+1
+    FinMientras
+    Escribir("El porcentaje de Hombres mayores de 18 es: ", (100*may18M)/Cont)
+    Escribir("El porcentaje de Hombres menores de 18 es: ", (100*men18M)/Cont)
+    Escribir("El porcentaje de Mujeres mayores de 18 es: ", (100*may18F)/Cont)
+    Escribir("El porcentaje de Mujeres menores de 18 es: ", (100*men18F)/Cont)
+    Escribir("La cantidad de habitantes es de: ", Cont)
+    Cerrar(Hab)
+FinFuncion

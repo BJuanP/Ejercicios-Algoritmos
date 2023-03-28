@@ -1,0 +1,87 @@
+Program UTNBook Es
+Ambiente
+
+    Clave = Registro
+        Cod_User: N(5)
+        Cod_Amigo: N(5)
+    FinReg
+
+    Fecha = Registro
+        dia: N(2)
+        Mes: N(2)
+        Año: N(4)
+    FinReg
+
+    Amigos = Registro
+        ClaveA: Clave
+        Fecha_Amis: Fecha
+        Mensaje_muro: AN(300)
+    FinReg
+
+    Notificaciones = Registro
+        ClaveN: Clave 
+        Cod_Mov: N(5)
+        Fecha_Amis: Fecha
+        Mensaje_Muro: AN(600)
+    FinReg
+
+    ArchAmi: Archivo de Amigos Ordenado por Clave
+        RAmi: Amigos
+        ArchNot: Archivo de Notificaciones Ordenado por ClaveN
+        RNot: Notificaciones
+        ArchSal: Archivo de Amigos Ordenado por Clave
+        RSal: Amigos
+
+    Procedimiento Leer_Amigos Es
+        Leer(ArchAmi, RAmi)
+        Si FDA(ArchAmi, RAmi) entonces
+            RAmi.Clave:= HV
+        FinSi
+    FinProcedimiento
+        
+    Procedimiento Leer_Not Es
+        Leer(ArchNot, Rnot)
+        Si FDA(ArchNot) entonces
+            Rnot.ClaveN:= HV
+        FinSi
+    FinProcedimiento
+
+PROCESO
+    Abrir E/(ArchAmi)
+    Abrir E/(ArchNot)
+    Abrir S/(ArchSal)
+
+    Leer_Amigos
+    Leer_Not
+
+    Mientras (RAmi.ClaveA <> HV) o (RNot.ClaveN <> HV) Hacer
+        Si (RAmi.ClaveA = RNot.Claven) entonces
+            Según (RNot.Cod_Mov) Hacer
+            
+                ="A": RSal.Fecha_Amis:= RNot.Fecha_Amis
+                    RSal.Mensaje_Muro:= RAmi.Mensaje_Muro
+                    RSal.ClaveA:= RAmi.ClaveA
+                    Grabar(ArchSal, RSal)
+                    
+                ="B": ("Eliminación");
+
+                ="C": RSal.Fecha_Amis:= RAmi.Fecha_Amis
+                    RSal.Mensaje_Muro:= RNot.Mensaje_Muro
+                    RSal.ClaveA:= RAmi.ClaveN
+                    Grabar(ArchSal, RSal)
+            FinSegun
+
+            Leer_Ami
+            Leer_Not
+        FinSi
+    FinMientras
+    Cerrar(ArchAmi)
+    Cerrar(ArchNot)
+    Cerrar(ArchSal)
+FinAccion
+                
+
+
+
+
+

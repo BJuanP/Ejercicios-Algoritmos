@@ -1,0 +1,84 @@
+Accion SuperTren Es
+AMBIENTE
+
+    Asientos = registro 
+        TrenNro: N(4)
+        AsiNro: N(4)
+        CiuOri: N(3)
+        CiuDes: N((3)
+        Categoria: (“1”,”2”,”3”)	
+    Fin registro
+
+    ArchAsi: archivo de Asientos indexado por TrenNro, AsiNro
+    Asi: asientos
+
+    Reservas = registro
+        ResNro: N(4)
+        TrenNro: N(4)
+        AsiNro: N(4)
+        Estado: ("R", "C")
+        SrvNro: N(2)
+    FinRegistro
+
+    ArchRes: Archivo Secuencial ordenado por ResNro
+    Res: Reservas
+
+    Servicios = Registro
+        SrvNro: N(2)
+        SrvDsc: AN(30)
+        SrvCat2: ("1", "2", "3")
+    FinRegistro
+
+    ArchSer: Archivo indexado por SrvNro
+    Ser: Servicios
+
+PROCESO
+    Abrir E/S (ArchAsi)
+
+    Abrir E/ (ArchRes)
+    Leer(ArchRes, Res)
+
+    Abrir E/ (ArchSer)
+
+    Mientras NFDA(ArchRes) Hacer
+        Asi.TrenNro:= Res.TrenNro
+        Asi.AsiNro:= Res.AsiNro
+        Leer(ArchAsi, Asi)
+
+        Si Existe Entonces
+            Si Res.Estado = "C" Entonces
+                Borrar(ArchAsi, Asi)
+            Sino
+                Ser.SrvNro:= Res.SrvNro
+                Leer(ArchSer, Ser)
+
+                Si Existe Entonces
+                    Si Ser.SrvCat2 = "2" o Ser.SrvCat2 = "3" entonces
+                        Asi.Categoria := Ser.SrvCat2
+                        Regrabar(ArchAsi, Asi)
+                    FinSi
+                Sino
+                    Escribir("El servicio no existe")
+                FinSi
+            FinSi
+        Sino
+            Esc(Ingrese Ciudad Origen / Ciudad destino)
+            Leer(CiuOriE)
+            Leer(CiuDesE)
+
+            Asi.TrenNro:= Res.TrenNro
+            Asi.AsiNro:= Res.AsiNro
+            Asi.CiuOri:= CiuOriE
+            Asi.CiuDes:= CiuDesE
+            Asi.Categoria:= Res.SrvNro
+
+            Regrabar(ArchAsi, Asi)
+        FinSi
+
+        Leer(ArchRes, Res)
+    FinMientras
+
+    Cerrar(ArchRes)
+    Cerrar(ArchSer)
+    Cerrar(ArchAsi)
+FinAccion

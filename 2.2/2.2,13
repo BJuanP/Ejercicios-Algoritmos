@@ -1,0 +1,135 @@
+Accion Tragamonedas Es
+Ambiente
+
+    Fecha = Registro
+        dd: N(2)
+        mm: N(2)
+        aa: N(4)
+    FinReg
+
+    ClaveR = Registro
+        Cod_Suc: N(6)
+        Marca: AN(20)
+        Modelo: AN(50)
+        Cod_Trag: N(4)
+    FinReg
+
+    Reparaciones = Registro
+        Clave: ClaveR
+        Fecha_Rep: Fecha
+        Costo_Rep: Real(4,2)
+    FinReg
+
+    ArchR: Archivo de Reparaciones Ordenado por clave
+    RegR: Reparaciones
+
+    ResCod_Trag: ClaveR
+    ResCod_Suc: ClaveR
+    ResModelo: ClaveR
+    ResMarca: ClaveR
+    
+    TotP: Real(4,2)
+    CantRep: Entero
+
+    Subaccion Corte_Trag Es
+
+        Escribir("Tragamonedas", ResCod_Trag)
+        Escribir("Tragamonedas", ResModelo)
+        Escribir("Tragamonedas", ResMarca)
+        Escribir("Tragamonedas", ResCod_Suc)
+        Escribir("Total: ", TotP)
+        Escribir("Cantidad de reparaciones: ", CantRep)
+
+        ResCod_Trag:= RegR.Clave.Cod_Trag
+        TotP:= 0
+        CantRep:= 0
+    FinSubaccion
+
+    Subaccion Corte_Modelo Es
+        Corte_Trag
+        ResModelo:= RegR.Clave.Modelo
+    FinSubaccion
+
+    Subaccion Corte_Marca Es
+        Corte_Modelo
+        ResMarca:= RegR.Clave.Marca
+    FinSubaccion
+
+    Subaccion Corte_Suc Es
+        Corte_Marca
+        ResCod_Suc:= RegR.Clave.Cod_Suc
+    FinSubaccion
+
+PROCESO
+Abrir E/(ArchR)
+Leer(ArchR, RegR)
+
+ResCod_Trag:= RegR.Clave.Cod_Trag
+ResCod_Suc:= RegR.Clave.Cod_Duc
+ResModelo:= RegR.Clave.Modelo
+ResMarca:= RegR.Clave.Marca
+
+CantRep:= 0
+TotP:= 0
+
+Mientras NFDA(ArchR) hacer
+
+    Si RegR.Clave.Cod_Suc <> ResCod_Suc Entonces
+        Corte_Suc
+    Sino
+        Si RegR.Clave.Marca <> ResMarca Entonces
+            Corte_Marca
+        Sino
+            Si RegR.Clave.Modelo <> ResModelo Entonces
+                Corte_modelo
+            Sino
+                Si RegR.Clave.Cod_Trag <> ResCod_Trag Entonces
+                    Corte_trag
+                FinSi
+            FinSi
+        FinSi
+    FinSi
+
+    TotP:= TotP + RegR.Clave.Costo_Rep
+    CantRep:= CantRep + 1
+
+    Leer(ArchR, RegR)
+FinMientras
+
+Corte_Suc
+Cerrar(ArchR)
+FinAccion
+
+
+Prueba de Escritorio
+
+sucursal	marca	modelo	tragamonedas	fecha	costo		1	asd	123	1	8
+1	asd	123	1	12/12/2000	1		1	asd	123	2	5
+1	asd	123	1	12/12/2000	4		1	asd	345	1	8
+1	asd	123	1	12/12/2000	3		1	tre	765	1	27
+1	asd	123	2	12/12/2000	5		2	asd	345	2	15
+1	asd	345	1	12/12/2000	2		2	asd	345	3	9
+1	asd	345	1	12/12/2000	6		2	tre	567	1	8
+1	tre	765	1	12/12/2000	8	x	3	tre	312	2	4
+2	tre	765	1	13/12/2000	9		3	gre	987	4	14
+2	tre	765	1	14/12/2000	10		3	gre	378	5	4
+2	asd	345	2	12/12/2000	7						
+2	asd	345	2	13/12/2000	8						
+2	asd	345	3	14/12/2000	9						
+2	tre	567	1	12/12/2000	2						
+3	tre	567	1	12/12/2000	6						
+3	tre	312	2	12/12/2000	4						
+3	gre	987	4	12/12/2000	9						
+3	gre	987	4	12/12/2000	5						
+3	gre	378	5	12/12/2000	4						
+																						
+											
+1	tre	765	1			TotP	cant				
+						0	1				
+						8	2				
+1	asd	123	1	8		0	3				
+1	asd	123	2	5		5	4				
+1	asd	345	1	8		0	5				
+						2	6				
+						8	7				
+						0					

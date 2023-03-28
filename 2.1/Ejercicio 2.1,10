@@ -1,0 +1,32 @@
+Accion 2.1.10 Es
+Ambiente
+
+sec: secuencia de caracteres
+c: caracter
+C_I: caracter
+
+PROCESO 
+    ARR(Sec)
+    AVZ(sec, c)
+    Escribir("Ingrese un caracter")
+    Leer(C_I)
+
+    Mientras NFDS Hacer
+        Si c = C_I Entonces
+            Mientras c <> " " Hacer
+                AVZ(sec, c)
+            FinMientras
+            Cont:= Cont + 1
+        Sino 
+            Mientras c <> " " Hacer
+                AVZ(sec, c)
+            FinMientras
+        FinSi 
+        AVZ(sec, c)
+    FinMientras 
+    Cerrar(sec)
+    Escribir("La cantidad de palabras que comienzan con la letra: ", C_I", ,es de: ", Cont)
+FinAccion
+
+secuencia: fasidai isdasdas aferwcwecsdwereg iasdad fdgsdv
+C_I = i

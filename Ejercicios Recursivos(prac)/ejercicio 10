@@ -1,0 +1,11 @@
+Suma los digitos de un numero de forma recursiva.
+
+Funcion Sumar(n, a, inv:entero):entero es
+    Si n < 1 entonces
+        Sumar:= inv
+    Sino
+        a:= n MOD 10
+        inv:= inv * 10 + a
+        Sumar:= Sumar(n DIV 10, a, inv)
+    FinSi
+FinFuncion

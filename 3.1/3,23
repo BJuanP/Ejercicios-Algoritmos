@@ -1,0 +1,50 @@
+Accion Pacientes(arreglo: Arreglo de [1..4, 1..7, 1..50] de entero) Es
+Ambiente
+
+arregloNuevo: Arreglo de [1..50, 1..7] de real
+
+PROCESO
+
+    Para i:= 1 hasta 50 hacer
+        Para j:= 1 hasta 7 hacer
+            ArregloNuevo[i, j]:= 0
+        FinPara
+    FinPara
+
+    Para z:= 1 hasta 50 hacer
+        Tmax:= 0
+        Tmin:= HV
+        LecMin:= HV
+        DiaMin:= HV
+        LecMax:= 0
+        DiaMax:= 0
+        Acum:= 0
+
+        Para j:= 1 hasta 7 hacer
+            Acum:= 0
+
+            Para i:= 1 hasta 4 
+                
+                Si Arreglo[i, j, z] > Tmax entonces
+                    Tmax:= Arreglo[i, j, z]
+                    LecMax:= i
+                    DiaMax:= j
+                FinSi
+
+                Si Arreglo[i, j, z] < Tmin entonces
+                    Tmin:= Arreglo[i, j, z]
+                    LecMin:= i
+                    DiaMin:= j
+                FinSi
+
+                ArregloNuevo[z, j]:= ArregloNuevo[z, j] + (Arreglo[i, j, z] / 4)
+            FinPara
+        FinPara
+
+        Escribir("La temperatura maxima del paciente es de: ", Tmax, ", que 
+        se registró el dia: ", diamax, "en la lectura:", lecmax)
+
+        Escribir("La temperatura maxima del paciente es de: ", Tmin, ", que 
+        se registró el dia: ", diamin, "en la lectura:", lecmin)
+    FinPara
+FinAccion

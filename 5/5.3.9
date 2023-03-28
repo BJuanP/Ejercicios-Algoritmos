@@ -1,0 +1,26 @@
+
+
+Funcion Suma(p: puntero a T) Es
+ 
+Si p <> Nill entonces
+    Suma:= Suma(*p.Izq) + *p.valor + Suma(*p.Der)
+Sino
+    Suma:= 0
+FinSi
+
+FinFuncion
+
+
+Funcion SumaMul3(p: puntero a T) Es
+ 
+Si p <> Nill entonces
+    Si (*p.valor MOD 3) = 0 entonces
+        SumaMul3:= SumaMul3(*p.Izq) + *p.valor + SumaMul3(*p.Der)
+    Sino
+        SumaMul3:= 0
+    FinSi
+Sino
+    SumaMul3:= 0
+FinSi
+
+FinFuncion

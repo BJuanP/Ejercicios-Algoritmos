@@ -1,0 +1,28 @@
+Accion 5.3.7 ()es
+Ambiente
+
+Funcion Arbol(p: puntero a Nodo): entero es
+
+    si p = null entonces
+        Arbol:=0
+    sino
+        Arbol:=arbol(*p.izq)+1+Arbol(*p.der)
+    FinSi
+FinFuncion
+
+
+Funcion Arbol(p: puntero a Nodo, aux:entero): entero es
+
+    si p = null entonces
+        Arbol:=0
+    sino
+        Si *p.valor MOD 3 = 0 entonces
+            aux:= *p.valor
+        Sino
+            Aux:= 0
+        FinSi
+
+        Arbol:= aux + arbol(*p.izq, aux) + Arbol(*p.der, aux)
+    FinSi
+FinFuncion
+

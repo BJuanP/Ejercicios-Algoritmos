@@ -1,0 +1,60 @@
+Se dispone de una secuencia de facturas con los siguientes datos:
+
+Nº de Factura
+Fecha
+Total
+Se desea un listado de las facturas cuyas fechas sean posteriores 
+a una fecha dada, y cuyos importes totales no alcancen los $1000, 
+con el siguiente formato:
+
+Nro_FacturaFechaImporte_Total
+
+
+Accion Facturas Es
+Ambiente
+
+Fecha = Registro 
+    Año: entero(4)
+    mes: entero(2)
+    dia: entero(2)
+FinRegistro
+
+Facturas = Registro
+    Nº de Factura: entero(8)
+    Fecha: Fecha
+    Total: Real(6,2)
+FinRegistro 
+
+Fac: archivo de Facturas
+f: Facturas
+
+FacturasSal = Registro
+    NºFac: entero(8)
+    Fecha: Fecha
+    ImporteTotal: Real(8,2)
+FinRegistro 
+
+FacSal: Archivo de FacturasSal
+
+Fec_Ing: Fecha
+
+PROCESO
+
+Escribir("Ingrese una fecha")
+Leer(Fec_Ing)
+Abrir E/(Fac)
+leer(fac, f)
+crear(FacSal)
+
+Mientras NFDA(Fac) hacer
+    si (f.Fecha >= Fec_Ing) y (f.importe < 1000) entonces
+        GRABAR(FacSal, f.NºFac; f.Fecha; f.Total)
+    FinSi
+    leer(Fac, f)
+FinMientras
+
+CERRAR(Fac)
+CERRAR(FacturasSal)
+FinAccion
+
+//En el ejercicio solo hay que listar, no grabar

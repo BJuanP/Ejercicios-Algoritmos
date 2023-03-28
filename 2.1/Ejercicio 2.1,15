@@ -1,0 +1,45 @@
+-Se desea saber la cantidad promedio de palabras que contienen las 
+oraciones de una secuencia de caracteres. Supóngase que los puntos 
+son siempre contiguos al último caracter de la palabra. 
+La secuencia finaliza con una marca.
+
+Accion CantPalabras Es
+Ambiente
+
+Sec: Secuencia de caracter
+v: caracter
+
+ContP, ContO, Prom: Entero 
+
+PROCESO
+    ARR(Sec)
+    AVZ(Sec, v)
+    ContP:= 0
+    ContO:= 0
+
+    Mientras NFDS(Sec) Hacer
+        Mientras v <> "." Hacer
+            Mientras v <> " " Hacer
+                Avz(Sec, v)
+            FinMientras
+            ContP:= ContP+1
+            Mientras v = " " Hacer
+                AVZ(Sec, v)
+            FinMientras
+        FinMientras
+        ContO:= ContO+1
+        AVZ(Sec, v)
+    FinMientras
+    Cerrar(Sec)
+    Escribir("El promedio de palabras que existen en la cantidad de oraciones es de: ", ContP/ContO)
+FinAccion
+
+asd  asda.sdasdas  asda asd asd.asd asd a sadasd asd*
+
+15 oraciones
+427 palabras
+427/15
+
+contp= 1
+conto= 0
+

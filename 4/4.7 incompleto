@@ -1,0 +1,50 @@
+Accion 4,7 Es
+Ambiente
+
+
+v: caracter
+VM, MV: N
+Lm, mL: AF(1)
+
+PROCESO
+ARR(sec)
+Avz(Sec)
+Prim1:= nill
+a:= nill
+
+mientras (p <> nil) y (l <> *p.LETRA) hacer
+    p:=*p.prox
+finMientras
+
+si p = mill entonces 
+    nuevo(n)
+    *n.LETRA:=l
+    *n.cont:=1
+    q:= prim1
+
+    Mientras (q <> nill) y (*q.LETRA < 1) hacer
+        a:=q
+        q:=*q.prox
+    fin mientras
+
+    si (q= prim1) entonces 
+        *n.prox:=prim1
+        prim1:=n
+    sino
+        *p.prox:=q
+        *a.prox:=p
+    FinSi
+sino
+    *p.cont:= *p.cont+1
+finsi
+
+mientras (p <> nil) y (l <> *p.LETRA) hacer
+    p:= *p.prox
+finMientras
+
+si p = nill entonces
+    Escribir("Errores, no se encontró esta letra: ", l)
+    sino
+
+
+

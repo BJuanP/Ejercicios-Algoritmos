@@ -1,0 +1,9 @@
+Construir una funcion recursiva que devuelva el factorial de un num.
+
+Funcion Factorial(n:entero):entero
+    Si n = 0 Entonces
+        Factorial:= 0
+    Sino
+        Factorial:= n + Factorial(n-1)
+    FinSi
+FinSi

@@ -1,0 +1,35 @@
+Accion Motores Es
+Ambiente
+
+NODO = Registro
+    Nro_Personal: N(5)
+    Nombre: AN(50)
+    Asignaciones: N(5)
+    Antiguedad: N(2)
+    prox, ant: puntero a NODO
+FinRegistro
+
+Personal = Registro
+    DNI: N(8)
+    Nombre: AN(50)
+    Antiguedad: N(2)
+FinRegistro
+
+ArchPer: Archivo de Personal Ordenado por DNI
+Per: Personal
+
+ContP: entero 
+
+PROCESO
+Abrir(ArchPer)
+Leer(ArchPer, Per)
+
+ContP:= 0
+
+Mientras NFDA(ArchPer) Hacer
+    Nuevo(Q)
+    *Q.Nro_Personal:= ContP
+    *Q.Nombre:= Per.Nombre
+    *Q.Asignaciones:=
+
+    ContP:= ContP + 1

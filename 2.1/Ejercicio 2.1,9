@@ -1,0 +1,30 @@
+Accion 2.1.10 Es
+Ambiente
+
+sec: secuencia de caracteres
+c: caracter
+l: caracter
+
+PROCESO 
+    ARR(Sec)
+    AVZ(sec, c)
+    l:= "l"
+
+    Mientras NFDS Hacer
+        Si c = l Entonces
+            Mientras c <> " " Hacer
+                AVZ(sec, c)
+            FinMientras
+            Cont:= Cont + 1
+        Sino 
+            Mientras c <> " " Hacer
+                AVZ(sec, c)
+            FinMientras
+        FinSi 
+        AVZ(sec, c)
+    FinMientras 
+    Cerrar(sec)
+    Escribir("La cantidad de palabras que comienzan con la letra l es de: ", Cont)
+FinAccion
+
+secuencia: fasidai lsdasdas aferwcwecsdwereg lasdad fdgsdv

@@ -1,0 +1,40 @@
+Un centro de ventas de productos tecnologicos acaba de ingresar placas madres y procesadores 
+y quieren agregar esa cantidad al stock. Ademas quieren ver la cantidad actualizada de stock 
+que poseen de cada uno. La cantidad de stock desactualizado de cada uno es: Placas madre = 2100 
+y procesadores = 1700
+
+Accion Prod_Tec Es 
+AMBIENTE
+
+Variables
+PM, P: entero
+
+Constantes
+Stock_PM:= 2100
+Stock_PM:= 1700
+
+Funcion Stock(Productos:entero):entero Es
+    Mientras Productos > 0 Hacer
+        Stock:= Stock+1
+        Productos:= Productos - 1
+    FinMientras
+FinFuncion
+
+Procedimiento M_Stock(Stock_1, Stock_2:entero) Es
+    Escribir("La cantidad de placas madres es: ", Stock_1)
+    Escribir("La cantidad de procesadores es: ", Stock_2)
+FinProcedimiento
+
+PROCESO 
+
+Escribir("Ingrese la cantidad de Placas Madre")
+Leer(PM)
+Escribir("Ingrese la cantidad de Procesadores")
+Leer(P)
+
+Stock_PM:= Stock_PM + Stock(PM)
+Stock_P:= Stock_P + Stock(P)
+
+M_Stock(Stock_PM, Stock_P)
+FinAccion
+

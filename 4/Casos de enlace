@@ -1,0 +1,79 @@
+1er CASO
+
+Accion agregar1nodo Es //EN EL CASO DE QUE LA LISTA ESTÉ VACÍA
+ambiente
+	
+	NODO=Registro
+		Dato: N(1)
+		Porx: Puntero a Nodo
+	FInReg
+
+	Q: Puntero a Nodo;
+	PRIM: Puntero a Nodo
+
+PROCESO
+		
+		Nuevo(Q) //CREAR NODO
+
+		*Q.Dato:= 5  //DAR UN VALOR AL NODO
+
+		Si Prim = NIL entonces
+			Prim:= Q
+
+			*Q.Prox:= NIL  //LE ASIGNAMOS EL VALOR NULO PORQUE HAY UN SOLO ELEMENTO
+		FinSi
+
+FinAccion
+
+
+
+2do CASO
+
+Accion agregar1nodo Es //EN EL CASO DE QUE LA LISTA ESTÉ YA CARGADA
+ambiente
+	
+	NODO=Registro
+		Dato: N(1)
+		Porx: Puntero a Nodo
+	FInReg
+
+	Q: Puntero a Nodo;
+	PRIM: Puntero a Nodo
+
+PROCESO
+		
+	Nuevo(Q)
+
+	Leer(*Q.Dato) //PEDIR AL USUARIO QUE INGRESE EL DATO A INSERTAR EN LA LISTA
+
+	P:= PRIM
+	Mientras P <> NIL hacer
+		Si *P.Dato < *Q.Dato y P <> Nil entonces
+			P:= *P.Prox
+		FinSi
+	FinMientras
+
+	//LISTA VACÍA
+	Si Prim = NIL entonces
+		Prim:= Q
+
+		*Q.Prox:= NIL  //LE ASIGNAMOS EL VALOR NULO PORQUE HAY UN SOLO ELEMENTO
+	FinSi
+
+	//INSERTAR PRIMER ELEMENTO
+	Si PRIM = P Entonces
+		PRIM:= Q
+		Q:= P
+
+		-----OTRA FORMA DE HACER
+
+		Q.Prox:= PRIM
+		PRIM:= Q
+	Sino
+		Si P <> Nil entonces
+			*Q.Prox:= P
+			*Ant.Prox:= Q
+		FinSi
+	FinSi
+
+FinAccion

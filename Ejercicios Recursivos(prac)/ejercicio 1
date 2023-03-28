@@ -1,0 +1,10 @@
+Sumar los números números naturales hasta N (se lo damos nosotros) 
+de forma recursiva.
+
+Funcion Sumar(n:entero):entero Es
+    Si n = 0 entonces 
+        Sumar:= 0
+    Sino
+        Sumar:= n + Sumar(n-1)
+    FinSi
+FinFuncion

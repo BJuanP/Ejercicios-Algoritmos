@@ -1,0 +1,82 @@
+Accion Oraciones Es
+Ambiente
+
+Sec1, Sec2: Secuencia de Caracter
+v, d: Caracter 
+
+SecS: Secuencia de Caracter
+ContS1, ContS2: Entero
+
+PROCESO
+    ARR(Sec1)
+    Avz(Sec1, v)
+    ARR(Sec2)
+    Avz(Sec2, d)
+    Crear:= SecS
+    ContS1:= 0
+    ContS2:= 0
+
+    Mientras NFDS(Sec1, Sec2) hacer
+        Mientras v <> "." hacer
+            Mientras v <> " " Hacer 
+                Escribir(SecS, v)
+                Avz(Sec1, v)
+            FinMientras
+            Avz(Sec1, v)
+            Escribir(SecS, " ") 
+
+            Mientras v <> " " Hacer
+                Avz(Sec1, v)
+            FinMientras
+            Avz(Sec1, v)
+            ConstS1:= ContS1 + 1
+        FinMientras
+
+        Mientras d <> "." hacer
+            Mientras d <> " " Hacer 
+                Avz(Sec2, d)
+            FinMientras
+            Avz(Sec2, d)
+
+            Mientras d <> " " Hacer
+                Escribir(SecS, d)
+                Avz(Sec2, d)
+            FinMientras
+            Escribir(SecS, " ")
+            Avz(Sec2, d)
+            
+            ConstS2:= ContS2 + 1
+        FinMientras
+    FinMientras
+
+    Mientras NFDS(Sec1) hacer
+        Mientras v <> "." hacer
+            Avz(Sec1, v)
+        FinMientras
+        ContS1:= ContS1 + 1
+        Avz(Sec1, v)
+    FinMientras
+
+    Mientras NFDS(Sec2) hacer
+        Mientras d <> "." hacer
+            Avz(Sec2, d)
+        FinMientras
+        ContS2:= ContS2 + 1
+        Avz(sec2, d)
+    FinMientras
+
+    cerrar(Sec1)
+    cerrar(Sec2)
+    cerrar(SecS)
+    Escribir("Total de oraciones de la secuencia 1: ", Cont1")
+    Escribir("Total de oraciones de la secuencia 2: ", Cont2")
+FinAccion
+
+Sec1: momo, viejardo asdas. cosco, pajin dasda. NFDS
+
+Sec2: piti, mosho asd. andate, gil asdas. NFDS
+
+SecS: momo, mosho asd. cosco, gil asdas. 
+
+1hasta , / 2hasta . 
+Contar Oraciones de cada secuencia

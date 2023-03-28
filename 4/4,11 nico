@@ -1,0 +1,104 @@
+ACCION 4.11 ES 
+AMBIENTE 
+
+    r_motorizados = REGISTRO 
+        DNI : N(8)
+        Nombre: AN(20)
+        Antiguedad: N(2)
+    FR 
+
+    motorizados: archivo de r_motorizados ordenado por DNI 
+    v: r_motorizados
+
+    PRIM,ULT,Q,P: puntero a nodo 
+
+    PERSONAL = REGISTRO
+	    nro: N(8)
+        Nombre: AN(50)
+        Asignaciones: N(5)
+        Antigüedad: N(2)
+    FR
+
+    nodo = REGISTRO 
+        datos: PERSONAL 
+        prox,ant: puntero a nodo 
+    FR 
+
+    booleano:= boolean
+    
+PROCESO 
+
+Abrir E/(motorizados)
+Leer(motorizados,v)
+
+PRIM := NILL
+
+MIENTRAS NFDA(motorizados) HACER 
+    P:= PRIM
+    Nuevo(Q)
+    *Q.datos.nro := v.dni
+    *Q.datos.Nombre:= v.Nombre
+    *Q.datos.asignaciones:= 0
+    *Q.datos.Antiguedad:= v.Antiguedad
+
+    SI PRIM = NILL ENTONCES 
+        PRIM:= Q 
+        *Q.ant:= NILL
+        *Q.prox:= NILL
+        ULT:= Q
+    SINO
+        MIENTRAS P <> NILL Y *P.datos.Antiguedad > v.Antiguedad HACER 
+            P:= *P.prox 
+        FinMientras
+
+        SI P = PRIM ENTONCES 
+            *Q.prox:= P 
+            *Q.ant:= NILL
+            *P.ant:= Q 
+            PRIM:= Q 
+        SINO 
+            SI P = NILL ENTONCES 
+                *Q.prox:= NILL 
+                *Q.ant:= ULT
+                ULT.prox:= Q 
+                ULT:= Q 
+            SINO 
+                *Q.prox:= P
+                *Q.ant:= *P.ant
+                *(*P.ant).prox:= Q 
+                *P.ant:= Q
+            FinSi
+        FinSi
+    FinSi
+    Leer(motorizados,v)
+FinMientras 
+
+Escribir("¿Quiere realizar una nueva asignacion? S/N")
+Leer(booleano)
+MIENTRAS booleano = 'S' HACER
+    P:= PRIM
+    *P.datos.Asignaciones:= *P.datos.Asignaciones + 1
+
+    // SACARLO DEL PRINCIPIO
+    (*P.prox)*.ant := nill
+    PRIM := *P.prox
+
+    // PONERLO AL FINAL
+    *ULT.prox := P
+    *P.ant := ULT
+    *P.prox := nill
+    ULT := P
+
+    Esc(¿Quiere relizar otra asignacion? S/N)
+    Leer(boleano)
+FinMientras 
+
+P:= PRIM 
+
+MIENTRAS P <> NILL HACER 
+    Esc("las asignaciones totales del motorista: ", *P.datos.Nombre, "son: ", *P.datos.asignaciones)
+    P:=*P.prox
+FinMientras
+
+Cerrar(motorizados)
+FIN ACCION

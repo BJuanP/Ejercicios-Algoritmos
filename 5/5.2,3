@@ -1,0 +1,49 @@
+
+
+//5.2.2
+
+Procedimiento palindromo (N, i: entero, a: arreglo [1..N] de caracter) es 
+//N es la longitud de la palabra, la palabra está cargada en el arreglo, considerar que i comienza en 1
+
+Si (i <= N) entonces
+		Escribir(a[i])
+		palindromo(N, i+1, a)
+Fin si
+Fin procedimiento
+
+
+
+
+//5.2.3
+
+Dada una lista de nombres ordenada en forma ascendente, construir un procedimiento recursivo que imprima como salida la misma lista, pero en orden descendente, sin modificar la lista original.
+*/
+//horacio jorge leonardo nil
+Procedimiento lis(p: puntero a nodo) es
+	Si *p.prox = nil entonces
+		esc(*p.dato) //leonardo
+	sino
+		lis(*p.prox) //(jorge (leonardo))
+		esc(*p.dato) //jorge horacio
+	finsi
+finprocedimiento
+
+//opcion 2
+procedimiento Descendente (p: puntero a nodo) es
+	si p <> nil entonces
+		lis (*p.prox)
+		esc(*p.dato)
+	finsi
+finProcedimiento
+
+
+//5.2.3 CORREGIDO POR EL PROFE
+
+Procedimiento lis(p: puntero a nodo) es
+	Si *p.prox <> nil entonces
+		lis(*p.prox)
+	FinSi 
+
+	esc(*p.dato)
+
+finprocedimiento

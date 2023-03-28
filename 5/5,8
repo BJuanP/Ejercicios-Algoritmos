@@ -1,0 +1,17 @@
+pasar el indice por parametros
+
+el caso base va a depender de cuanto vale i
+
+//considero que la variable i vale 10 al principio
+
+se derementa el i hasta llegar a 1
+
+
+
+Funcion sumar (a: arreglo[1.10] de enteros, indice:entero):entero Es
+    si i = 1 entonces
+        sumar: arreglo[i]
+    sino
+        sumar:= arreglo[i] + sumar (a, indice-1)   //acá no va arreglo[i], porque solo se le debe pasar el arreglo, no la posicion del arreglo
+    FinSi
+FinFuncion

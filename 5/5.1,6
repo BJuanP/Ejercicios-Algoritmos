@@ -1,0 +1,18 @@
+Determine recursivamente si un número dado es par o impar, 
+usando sólo la operación resta.
+Si da verdadero es par el numero.
+
+Funcion poi(n:entero):logico Es
+    Si n = 0 entonces
+        poi:= verdadero
+    Sino
+        si n = 1 entonces
+            poi:= falso
+        sino
+            poi:= poi(n-2)
+        FinSi
+    FinSi
+FinFuncion
+
+
+

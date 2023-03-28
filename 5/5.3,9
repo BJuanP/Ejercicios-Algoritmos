@@ -1,0 +1,30 @@
+Se dispone de un árbol binario de enteros. 
+Escribir funciones que calculen:
+
+La suma de sus elementos.
+La suma de sus elementos que son múltiplos de 3.
+
+
+
+Funcion Recur1(p: puntero a Nodo):entero es
+    Si p <> null entonces
+        recur1:= recur1(*p.izq) + *p.num + recur1(*p.der)
+    sino
+        recur1:=0
+    FinSi
+FinFuncion
+
+
+
+Funcion Recur2(p:puntero a Nodo):entero es
+    si p <> null entonces
+
+        Si *p.num MOD 3 <> 0 entonces 
+            recur2:= 0
+        Sino
+            Recur2:= *p.num
+        FinSi
+
+        recur2:= recur2(*p.izq) + 0 + recur2(*p.der)
+    FinSi
+FinFuncion

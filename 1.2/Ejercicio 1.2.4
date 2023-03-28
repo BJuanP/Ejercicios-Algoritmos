@@ -1,0 +1,31 @@
+Acccion Clave Es
+Ambiente
+
+Resultado: entero
+
+Funcion Retornar(num:entero):entero Es
+Ambiente
+    Acum: entero
+PROCESO
+    Acum:=0
+
+    Si num < 0 Entonces
+        Retornar:= -1
+    Sino
+        Mientras num > 0 Hacer
+            digito:= num%10
+            num:= num/10
+            Acum:= Acum + digito
+        FinMientras
+    Retornar:= Acum MOD 7
+FinFuncion
+
+PROCESO
+
+Escribir("Ingrese un numero entero")
+Leer(Numero)
+
+Resultado:= Retornar(Numero)
+Escribir("Resultado final: ", Resultado)
+
+FinAccion

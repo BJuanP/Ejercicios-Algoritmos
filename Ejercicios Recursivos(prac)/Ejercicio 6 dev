@@ -1,0 +1,18 @@
+
+
+
+
+
+Funcion POI(n: entero):Entero Es
+
+    Si n = 0 entonces
+        POI:= V
+    Sino
+        Si n <> 1 entonces  
+            POI:= POI(n - 2)
+        Sino
+            POI:= F
+        Finsi
+    Finsi   
+
+FinFuncion 

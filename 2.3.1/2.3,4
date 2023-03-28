@@ -1,0 +1,91 @@
+Accion 2.3.4 Es
+Ambiente 
+
+    Productos = Registro
+        CodProd: N(5)
+        Nombre: AN(60)
+        Stock: N(5)
+        Precio: N(65
+
+    Ticket = Registro
+        NroTicket: N(5)
+        Fecha: N(8)
+        Cliente: : N(5)
+    FinReg
+
+    DetalleTicket = Registro
+        NroTicket: N(5)
+        NroLinea: N(5)
+        CodProd: N(5)
+        Cantidad: N(5)
+    FinReg
+
+    ArchProd: Archivo de Productos Indexado por CodProd
+    ArchTick: Archivo de Ticket Indexado por NroTicket
+    ArchDetTick: Archivo de DetalleTicket Indexado por NroTicket
+    P: Productos
+    T: Ticket
+    D: DetalleTicket
+
+    Linea: Entero
+    SubT: Entero
+    Total: Entero
+    Band: Logico
+    Cant: Entero
+    CodProdIng: entero
+
+PROCESO
+    Abrir E/S (ArchProd)
+    Abrir E/ (ArchTick)
+    Abrir E/ (ArchTick)
+
+    Band:= True
+    SubT:= 0
+    Total:= 0
+
+    Escribir("Empresa:"     Cuit: 2454313432     Fecha:  ", Fecha())
+    Escribir("Cliente: Consumidor Final")
+
+    Mientras Band Hacer
+        Escribir("Ingrese el codigo del producto")
+        Leer(CodProdIng)
+
+        P.CodProd:= CodProdIng
+
+        Si Existe Entonces
+
+            Escribir("Ingrese la cantidad")
+            Leer(Cant)
+            SubT:= (Cant * P.Precio)
+            Total:= Total + SubT
+
+            Escribir("Producto: ", P.Nombre, " Cantidad:", Cant, "Subtotal:", SubT)
+
+            P.Stock:= P-Stock - Cant
+            REGRABAR(ArchProd, P)
+
+        SINO
+            Escribir("No existe el producto")
+        FinSi
+
+        Linea:= Linea + 1
+        D.NroTicket:= OBTENER_TICKET()
+        D.Nro_Linea:= Linea
+        D.CodProd:= CodProdIng
+        D.Cantidad:= Cant
+        GRABAR(ArchDetTick, D)
+
+        Escribir("Quiere seguir Ingresando Productos? SI/NO")
+        Leer(Band)
+    FinMientras
+    Cerrar(ArchProd)
+    Cerrar(ArchTick)
+    Cerrar(ArchDetTick)
+   
+    T.NroTicket:= OBTENER_TICKET
+    T.Fecha:= Fecha()
+    T.Cliente:= "Consumidor Final"
+    GRABAR(ArchTick, T)
+
+    Escribir("El Total es de ", Total)
+FinAccion
